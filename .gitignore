@@ -1,3 +1,4 @@
 *.tlog
 group-project.sdf
 group-project.VC.opendb
+group-project/Debug/vc140.idb
