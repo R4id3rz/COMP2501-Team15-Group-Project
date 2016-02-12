@@ -159,9 +159,18 @@
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actor.hpp" />
     <ClInclude Include="Controller.hpp" />
+    <ClInclude Include="Entity.hpp" />
+    <ClInclude Include="Fuel.hpp" />
+    <ClInclude Include="Key.hpp" />
+    <ClInclude Include="Item.hpp" />
     <ClInclude Include="Model.hpp" />
+    <ClInclude Include="Define.hpp" />
+    <ClInclude Include="Player.hpp" />
     <ClInclude Include="View.hpp" />
+    <ClInclude Include="World.hpp" />
+    <ClInclude Include="Zed.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
