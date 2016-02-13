@@ -1,10 +1,12 @@
 #pragma once
 
-/*
-Data:
-vector2i of position 
-vector2f of velocity
+class Entity
+{
 
-Function:
-virtual void update() = 0;
-*/
+public:
+	Entity();
+	~Entity();
+
+	sf::Vector2f position;
+	sf::Vector2f velocity;
+};

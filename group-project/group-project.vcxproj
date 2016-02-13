@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -163,11 +164,14 @@
     <ClInclude Include="Controller.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="Fuel.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="Key.hpp" />
     <ClInclude Include="Item.hpp" />
     <ClInclude Include="Model.hpp" />
     <ClInclude Include="Define.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Renderable.hpp" />
+    <ClInclude Include="Updateable.hpp" />
     <ClInclude Include="View.hpp" />
     <ClInclude Include="World.hpp" />
     <ClInclude Include="Zed.hpp" />
