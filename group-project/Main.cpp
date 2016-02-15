@@ -1,7 +1,9 @@
-
+#include "Game.hpp"
 
 int main()
 {
-	//AHAHAHHAHA
+	Game* game = new Game();
+
+	game->loop();
 	return 0;
 }

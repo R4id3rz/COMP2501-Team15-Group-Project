@@ -13,8 +13,6 @@ public:
 	Actor();
 	~Actor();
 
-	virtual void update(sf::Time) = 0;
-
 	std::vector<sf::Texture> textures;
 	bool isDead;
 };

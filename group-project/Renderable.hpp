@@ -2,5 +2,6 @@
 
 class Renderable
 {
-
+public:
+	sf::Sprite sprite;
 };
