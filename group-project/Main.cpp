@@ -2,7 +2,7 @@
 
 int main()
 {
-	Game* game = new Game();
+	Game* game = new Game(); //self explainatory...
 
 	game->loop();
 	return 0;

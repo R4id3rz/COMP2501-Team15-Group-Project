@@ -2,12 +2,14 @@
 
 Zed::Zed(Player* player) //accepts a player pointer to check its velocity
 {
-	position.x = 1200;
+	position.x = 1200; //hardcoded init location
 	position.y = 450;
-	textures.push_back(sf::Texture());
+
+	textures.push_back(sf::Texture()); //crude system for having different textures for animation purposes (only 1 frame atm)
 	textures.back().setSmooth(true);
 	textures.back().loadFromFile("EnemySlime.png");
-	sprite.setTexture(textures.back());
+
+	sprite.setTexture(textures.back()); //init sprite
 	sprite.setOrigin(textures.back().getSize().x / 2, textures.back().getSize().y);
 
 	this->player = player;
@@ -16,7 +18,7 @@ Zed::Zed(Player* player) //accepts a player pointer to check its velocity
 Zed::~Zed()
 {}
 
-void Zed::update(sf::Time time)
+void Zed::update(sf::Time time) //updates Zed velocity according to player, will overhaul this later...
 {
 	//player is....
 	if (player->position.x < position.x && player->position.y < position.y) //top left
@@ -65,8 +67,8 @@ void Zed::update(sf::Time time)
 		velocity.y = 0;
 	}
 
-	position.x += velocity.x * time.asMilliseconds();
+	position.x += velocity.x * time.asMilliseconds();  //updates position using velocity and time, independant of FPS
 	position.y += velocity.y * time.asMilliseconds();
 
-	sprite.setPosition(position);
+	sprite.setPosition(position);  //sets sprite location
 }
