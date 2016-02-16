@@ -5,9 +5,12 @@ Zed::Zed(Player* player) //accepts a player pointer to check its velocity
 	position.x = 1200; //hardcoded init location
 	position.y = 450;
 
+	image.loadFromFile("EnemySlime.png");
+	image.createMaskFromColor(sf::Color::White);
+
 	textures.push_back(sf::Texture()); //crude system for having different textures for animation purposes (only 1 frame atm)
 	textures.back().setSmooth(true);
-	textures.back().loadFromFile("EnemySlime.png");
+	textures.back().loadFromImage(image);
 
 	sprite.setTexture(textures.back()); //init sprite
 	sprite.setOrigin(textures.back().getSize().x / 2, textures.back().getSize().y);
@@ -20,55 +23,18 @@ Zed::~Zed()
 
 void Zed::update(sf::Time time) //updates Zed velocity according to player, will overhaul this later...
 {
-	//player is....
-	if (player->position.x < position.x && player->position.y < position.y) //top left
-	{
-		velocity.x = -0.05;
-		velocity.y = -0.05;
-	}
-	else if (player->position.x > position.x && player->position.y < position.y) //top right
-	{
-		velocity.x = 0.05;
-		velocity.y = -0.05;
-	}
-	else if (player->position.x < position.x && player->position.y > position.y) //bottom left
-	{
-		velocity.x = -0.05;
-		velocity.y = 0.05;
-	}
-	else if (player->position.x > position.x && player->position.y > position.y) //bottom right
-	{
-		velocity.x = 0.05;
-		velocity.y = 0.05;
-	}
-	else if (player->position.x < position.x) //left
-	{
-		velocity.x = -0.05;
-		velocity.y = 0;
-	}
-	else if (player->position.x > position.x) //right
-	{
-		velocity.x = 0.05;
-		velocity.y = 0;
-	}
-	else if (player->position.y < position.y) //top
-	{
-		velocity.x = 0;
-		velocity.y = -0.05;
-	}
-	else if (player->position.y > position.y) //bottom
-	{
-		velocity.x = 0;
-		velocity.y = 0.05;
-	}
-	else
-	{
-		velocity.x = 0;
-		velocity.y = 0;
-	}
+	//chasing AI v2.0, normalizes the difference between the two positions as a vector (not my code)
+	sf::Vector2f direction = player->position - this->position;
+	float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+	direction.x = direction.x / length;
+	direction.y = direction.y / length;
 
-	position.x += velocity.x * time.asMilliseconds();  //updates position using velocity and time, independant of FPS
-	position.y += velocity.y * time.asMilliseconds();
+	position.x += direction.x * 0.1 * time.asMilliseconds();  //updates position using direction, speed and time, independant of FPS
+	position.y += direction.y * 0.1 * time.asMilliseconds();
 
+	//rotates the enemy sprite accordingly (not my code)
+	float angle = atan2(player->position.y - this->position.y, player->position.x - this->position.x) * 180 / 3.141;
+	sprite.setRotation(angle);
+	
 	sprite.setPosition(position);  //sets sprite location
 }

@@ -5,9 +5,12 @@ Player::Player()
 	position.x = 400; //hardcoded init location
 	position.y = 450;
 
+	image.loadFromFile("FriendlySlime.png");
+	image.createMaskFromColor(sf::Color::White);
+
 	textures.push_back(sf::Texture()); //crude system for having different textures for animation purposes (only 1 frame atm)
 	textures.back().setSmooth(true);
-	textures.back().loadFromFile("FriendlySlime.png");
+	textures.back().loadFromImage(image);
 
 	sprite.setTexture(textures.back()); //init sprite
 	sprite.setOrigin(textures.back().getSize().x / 2, textures.back().getSize().y);
