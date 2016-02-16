@@ -8,6 +8,7 @@ instance of world object
 #include "Updateable.hpp"
 #include "Player.hpp"
 #include "Zed.hpp"
+#include "Config.hpp"
 
 class Model
 {
@@ -19,6 +20,9 @@ public:
 
 	Player* player;
 	Zed* zed;
+	Zed* zed2;
+	Zed* zed3;
+	Zed* zed4;
 
 	void update(sf::Time);
 };

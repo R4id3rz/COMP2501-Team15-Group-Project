@@ -2,10 +2,10 @@
 
 Player::Player()
 {
-	position.x = 400; //hardcoded init location
-	position.y = 450;
+	position.x = Config::PLAYER_START_POS_X; //hardcoded init location
+	position.y = Config::PLAYER_START_POS_Y;
 
-	image.loadFromFile("FriendlySlime.png");
+	image.loadFromFile(Config::PLAYER_IMAGE);
 	image.createMaskFromColor(sf::Color::White);
 
 	textures.push_back(sf::Texture()); //crude system for having different textures for animation purposes (only 1 frame atm)

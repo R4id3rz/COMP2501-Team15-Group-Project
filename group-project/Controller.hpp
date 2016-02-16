@@ -2,6 +2,7 @@
 
 #include "Model.hpp"
 #include "View.hpp"
+#include "Config.hpp"
 
 class Controller
 {

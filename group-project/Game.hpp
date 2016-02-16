@@ -4,6 +4,7 @@
 #include "Model.hpp"
 #include "View.hpp"
 #include "Controller.hpp"
+#include "Config.hpp"
 
 class Game
 {

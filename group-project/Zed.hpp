@@ -14,7 +14,7 @@ data:
 class Zed : public Actor
 {
 public:
-	Zed(Player*);
+	Zed(Player*, int, int);
 	~Zed();
 
 	Player* player;

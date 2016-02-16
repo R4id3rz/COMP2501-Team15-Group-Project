@@ -1,7 +1,9 @@
 #pragma once
-#include "Model.hpp"
+
 #include "SFML/Graphics.hpp"
+#include "Model.hpp"
 #include "Renderable.hpp"
+#include "Config.hpp"
 
 class View
 {
@@ -12,8 +14,6 @@ public:
 	sf::RenderWindow window;
 	Model* model;
 
-	int windowHeight = 900;
-	int windowWidth = 1600;
 	bool gameRunning = true;
 
 	std::vector<Renderable *> renderables;

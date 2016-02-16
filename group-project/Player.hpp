@@ -17,5 +17,7 @@ public:
 	Player();
 	~Player();
 
+	int inVehicle = Config::VEH_FALSE;
+
 	void update(sf::Time);
 };
