@@ -20,4 +20,5 @@ public:
 	int inVehicle = Config::VEH_FALSE;
 
 	void update(sf::Time);
+	bool getDeath();
 };

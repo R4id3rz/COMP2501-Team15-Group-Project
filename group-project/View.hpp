@@ -19,4 +19,8 @@ public:
 	std::vector<Renderable *> renderables;
 
 	void render();
+
+	//temp string
+	sf::Font font;
+	sf::Text playerDead;
 };

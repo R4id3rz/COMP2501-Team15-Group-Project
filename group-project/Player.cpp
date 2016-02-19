@@ -25,3 +25,8 @@ void Player::update(sf::Time time)  //updates position using velocity and time, 
 	position.y += velocity.y * time.asMilliseconds();
 	sprite.setPosition(position); //sets sprite location
 }
+
+bool Player::getDeath()
+{
+	return this->isDead;
+}

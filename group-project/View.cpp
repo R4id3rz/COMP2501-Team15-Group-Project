@@ -12,6 +12,15 @@ View::View(Model* model)
 	renderables.push_back(model->zed2);
 	renderables.push_back(model->zed3);
 	renderables.push_back(model->zed4);
+
+	//temp font indicator
+	font.loadFromFile("arial.ttf");
+	playerDead.setString("Player Died. Press C to Revive.");
+	playerDead.setFont(font);
+	playerDead.setStyle(sf::Text::Bold);
+	playerDead.setPosition(800, 880);
+	playerDead.setCharacterSize(20);
+	playerDead.setColor(sf::Color::White);
 }
 
 View::~View()
@@ -24,5 +33,12 @@ void View::render()
 	{
 		this->window.draw(renderables[i]->sprite);
 	}
+
+	//temp display
+	if (model->player->getDeath())
+	{
+		window.draw(playerDead);
+	}
+
 	this->window.display();
 }
