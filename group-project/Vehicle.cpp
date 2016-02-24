@@ -9,6 +9,8 @@ Vehicle::Vehicle(float acceleration, float maxSpeed, float turnRate, int fuel)
 	accel = decel = false;
 }
 
+Vehicle::~Vehicle() { }
+
 float Vehicle::getDirection() { return direction; }
 
 void Vehicle::accelerate() {

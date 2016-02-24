@@ -5,9 +5,9 @@
 class Vehicle: public Actor {
 public:
 	Vehicle(float, float, float, int);				//Initialize consts and fuel, sets other variables to 0 or false
-	virtual ~Vehicle() = 0;
+	~Vehicle();
 
-	float getDirection();
+	virtual float getDirection() = 0;
 
 	void accelerate();								//Tell vehicle to be accelerating
 	void reverse();									//Tell vehicle to decelerate
