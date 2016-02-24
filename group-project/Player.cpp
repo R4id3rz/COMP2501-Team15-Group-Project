@@ -13,7 +13,7 @@ Player::Player()
 	textures.back().loadFromImage(image);
 
 	sprite.setTexture(textures.back()); //init sprite
-	sprite.setOrigin(textures.back().getSize().x / 2, textures.back().getSize().y);
+	sprite.setOrigin(textures.back().getSize().x / 2, textures.back().getSize().y / 2);
 }
 
 Player::~Player()
