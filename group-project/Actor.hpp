@@ -13,7 +13,5 @@ public:
 	Actor();
 	~Actor();
 
-	sf::Image image;
-	std::vector<sf::Texture> textures;
 	bool isDead;
 };

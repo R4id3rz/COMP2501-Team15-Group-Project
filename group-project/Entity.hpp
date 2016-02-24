@@ -11,4 +11,7 @@ public:
 
 	sf::Vector2f position;
 	sf::Vector2f velocity;
+
+	sf::Image image;
+	std::vector<sf::Texture> textures;
 };
