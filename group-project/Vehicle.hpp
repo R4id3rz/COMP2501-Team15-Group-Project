@@ -14,8 +14,8 @@ public:
 	void turnLeft();								//Tell vehicle to turn left
 	void turnRight();								//Tell vehicle to turn right
 
-	void update();
-private:
+	void update(sf::Time);
+protected:
 	int fuel;
 	float direction, delTurn;						//Direction in degreees, 0 = East-ward
 	float speed;									//Like velocity except without direction

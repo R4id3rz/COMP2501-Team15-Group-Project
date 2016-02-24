@@ -1,8 +1,9 @@
 #pragma once
 
-class Truck/*: public Vehicle*/ {
-public:
+#include "Vehicle.hpp"
 
-private:
-	//turnrate = 2, 3 seconds to 360 turn
+class Truck: public Vehicle {
+public:
+	Truck(float, float);
+	~Truck();
 };

@@ -1,35 +1,17 @@
-#include "Vehicle.hpp"
-#include <math.h>
+#include "Tank.hpp"
 
-#define PI 3.1415926
+#include "Config.hpp"
 
-Vehicle::Vehicle(float acceleration, float maxSpeed, float turnRate, int fuel)
-	: acceleration(acceleration), maxSpeed(maxSpeed), turnRate(turnRate), fuel(fuel) {
-	velocity.x = velocity.y = speed = delTurn = 0;
-	accel = decel = false;
+Tank::Tank(float x, float  y)
+	: Vehicle(TANKACCELERATION, TANKMAXSPEED, TANKTURNRATE, TANKFUEL) {
+	position.x = x, position.y = y;
 }
 
-float Vehicle::getDirection() { return direction; }
-
-void Vehicle::accelerate() {
-	accel = true;
+Tank::~Tank() {
 }
 
-void Vehicle::reverse() {
-	decel = true;
-}
-
-void Vehicle::turnLeft() {
-	delTurn = -1 * turnRate;
-}
-
-void Vehicle::turnRight() {
-	delTurn = turnRate;
-}
-
-void Vehicle::update(sf::Time time) {
+void Tank::update(sf::Time time) {
 	if (accel || decel || (speed != 0)) {				//Vehicle only turns when moving
-														//Will override Tank subclass to allow turning while stationary.
 		direction += delTurn;
 		if (direction > 360) { direction -= 360; }
 		else if (direction < 0) { direction += 360; }
@@ -41,7 +23,7 @@ void Vehicle::update(sf::Time time) {
 		}
 	}
 	else if (decel) {
-		if (speed > (-maxSpeed / 2)) {
+		if (speed >(-maxSpeed / 2)) {
 			speed -= acceleration;
 		}
 	}

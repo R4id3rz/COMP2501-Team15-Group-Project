@@ -1,8 +1,13 @@
 #pragma once
 
-class Tank/*: public Vehicle*/{
+#include "Vehicle.hpp"
+
+class Tank: public Vehicle {
 public:
+	Tank(float, float);
+	~Tank();
+
+	void update(sf::Time);
 
 private:
-	//turnrate = 1 (i.e. 6 seconds for one full rotation)
 };
