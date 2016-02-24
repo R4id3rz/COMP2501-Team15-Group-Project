@@ -20,6 +20,8 @@
 #define	TRUCKACCELERATION	0.6
 #define	TRUCKFUEL			10000
 
+#define TILESIZE			64
+
 class Config
 {
 public:
