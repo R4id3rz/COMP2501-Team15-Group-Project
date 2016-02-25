@@ -24,5 +24,7 @@ public:
 	Zed* zed3;
 	Zed* zed4;
 
+	int** worldData;
+
 	void update(sf::Time);
 };
