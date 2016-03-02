@@ -4,3 +4,6 @@ group-project.VC.opendb
 group-project/Debug/vc140.idb
 group-project.opensdf
 group-project/group-project.vcxproj
+group-project/group-project.vcxproj.filters
+.gitattributes
+group-project.sln
