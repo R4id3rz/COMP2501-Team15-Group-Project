@@ -17,7 +17,7 @@ public:
 
 	bool gameRunning = true;
 
-	std::vector<Renderable *> renderables;
+	std::vector<Actor *> renderables;
 
 	void render();
 

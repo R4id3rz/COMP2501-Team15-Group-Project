@@ -44,7 +44,7 @@ void Zed::update(sf::Time time) //updates Zed velocity according to player, will
 		float angle = atan2(this->position.y - player->position.y, this->position.x - player->position.x) * 180 / 3.141;
 
 		sprite.setRotation(angle);
-		sprite.setPosition(position);  //sets sprite location
+		//sprite.setPosition(position);  //sets sprite location
 	}
-	sprite.setPosition(position);  //sets sprite location
+	//sprite.setPosition(position);  //sets sprite location
 }

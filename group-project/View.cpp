@@ -1,6 +1,7 @@
 #include "View.hpp"
 
 #include <iostream>
+#include <math.h>
 
 View::View(Model* model)
 	: winRows(10), winCols(16), tileRows(11), tileCols(17)
@@ -21,9 +22,9 @@ View::View(Model* model)
 	playerDead.setString("Player Died. Press C to Revive.");
 	playerDead.setFont(font);
 	playerDead.setStyle(sf::Text::Bold);
-	playerDead.setPosition(800, 880);
+	playerDead.setPosition(Config::WINDOW_WIDTH*1/4, Config::WINDOW_HEIGHT*3/4);
 	playerDead.setCharacterSize(20);
-	playerDead.setColor(sf::Color::White);
+	playerDead.setColor(sf::Color::Red);
 
 	//Initialize VertexArray
 	this->worldSprites.loadFromFile("spritesheet.png");
@@ -49,9 +50,13 @@ View::~View()
 
 void View::render()
 {
+	//Update sprites
 	updateView();
 	std::cout << "P Pos: (" << model->player->position.x << ", " << model->player->position.y << ")" << std::endl;
-
+	for (int i = 0; i < renderables.size(); i++) {		//Updates positions of sprites in renderables[n] relative to the player's sprite's position
+		renderables[i]->sprite.setPosition(model->player->sprite.getPosition()+renderables[i]->position - model->player->position);
+	}
+	//Draw sprites
 	this->window.clear();
 	this->window.draw(worldQuads, states);
 	for (int i = 0; i < this->renderables.size(); i++) //loops through entire renderable array and renders their sprites
@@ -63,7 +68,6 @@ void View::render()
 	{
 		window.draw(playerDead);
 	}
-
 	this->window.draw(model->player->sprite);
 	this->window.display();
 }
@@ -76,8 +80,8 @@ void View::updateView() {	//Update the VertexArray here
 	for (int i = 0; i < tileCols; i++) {
 		for (int j = 0; j < tileRows; j++) {
 			//GET CURRENT TILE WORLD TILE
-			wX = floor((pX - ((tileCols)*TILESIZE / 2)) / TILESIZE) + i;
-			wY = floor((pY - ((tileRows)*TILESIZE / 2)) / TILESIZE) + j;
+			wX = floor((pX - ((tileCols-1)*TILESIZE / 2)) / TILESIZE) + i;
+			wY = floor((pY - ((tileRows-1)*TILESIZE / 2)) / TILESIZE) + j;
 			tileNum = Grass;																//default tile to draw is grass
 			if ((wX >= 0 && wY >= 0) && (wX < model->worldCols && wY < model->worldRows)) {	//avoid index out of bounds
 				tileNum = model->worldData[wY][wX];
@@ -85,8 +89,8 @@ void View::updateView() {	//Update the VertexArray here
 
 			//SET POSITION OF CURRENT QUAD
 			sf::Vertex* quad = &worldQuads[(i + j * tileCols) * 4];
-			sX = -(pX - (floor(pX / TILESIZE))*TILESIZE) /*- (tileCols - winCols)*TILESIZE / 2*/ + (i*TILESIZE);
-			sY = -(pY - (floor(pY / TILESIZE))*TILESIZE) /*- (tileRows - winRows)*TILESIZE / 2*/ + (j*TILESIZE);
+			sX = -(pX - (floor(pX / TILESIZE))*TILESIZE) + (i*TILESIZE);
+			sY = -(pY - (floor(pY / TILESIZE))*TILESIZE) + (j*TILESIZE);
 			quad[0].position = sf::Vector2f(sX, sY);
 			quad[1].position = sf::Vector2f(sX + TILESIZE, sY);
 			quad[2].position = sf::Vector2f(sX + TILESIZE, sY + TILESIZE);
