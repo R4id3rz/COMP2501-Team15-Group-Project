@@ -25,6 +25,7 @@ public:
 	Zed* zed4;
 
 	int** worldData;
+	int worldCols, worldRows;
 
 	void update(sf::Time);
 };

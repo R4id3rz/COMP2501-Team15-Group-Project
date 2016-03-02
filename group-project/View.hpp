@@ -5,6 +5,7 @@
 #include "Renderable.hpp"
 #include "Config.hpp"
 
+
 class View
 {
 public:
@@ -23,4 +24,13 @@ public:
 	//temp string
 	sf::Font font;
 	sf::Text playerDead;
+
+private:
+	//World representation through VertexArray
+	int winCols, winRows, tileCols, tileRows;
+	sf::VertexArray worldQuads;
+	sf::Texture worldSprites;
+	sf::RenderStates states;
+
+	void updateView();			//Update worldQuads
 };

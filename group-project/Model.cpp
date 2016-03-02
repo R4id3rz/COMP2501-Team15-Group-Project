@@ -1,5 +1,8 @@
 #include "Model.hpp"
 
+#include <fstream>
+#include <iostream>
+
 Model::Model()
 {
 	//hardcoding and creating a player/zed and pushing to updatables
@@ -13,6 +16,27 @@ Model::Model()
 	this->updatables.push_back(zed2);
 	this->updatables.push_back(zed3);
 	this->updatables.push_back(zed4);
+
+	//Load world from file
+	std::ifstream fileReader;
+	fileReader.open("map.txt");
+	fileReader >> worldCols;
+	fileReader >> worldRows;
+	worldData = new int*[worldRows];
+	std::cout << "World: (" << worldCols << ", " << worldRows << ")" << std::endl;
+	for (int i = 0; i < worldRows; i++) {
+		worldData[i] = new int[worldCols];
+	}
+	for (int i = 0; i < worldRows; i++) {		//Format: worldData[row][column]
+		for (int j = 0; j < worldCols; j++) {
+			fileReader >> worldData[i][j];
+			if (worldData[i][j] < 10) {
+				std::cout << "0" << worldData[i][j] << " ";
+			}
+			else { std::cout << worldData[i][j] << " "; }
+		}
+		std::cout << std::endl;
+	}
 }
 
 Model::~Model()

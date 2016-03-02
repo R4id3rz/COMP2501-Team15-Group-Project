@@ -22,12 +22,17 @@
 
 #define TILESIZE			64
 
+enum TILETYPE { Tree, Grass, vRoad, hRoad, neRoad, esRoad, swRoad, wnRoad,
+				zGrass, zvRoad, zhRoad, zneRoad, zesRoad, zswRoad, zwnRoad,
+				Start, End };
+static sf::Vector2f tileCoords[17];
+
 class Config
 {
 public:
 	//Window
-	const static int				WINDOW_WIDTH = 1600;
-	const static int				WINDOW_HEIGHT = 900;
+	const static int				WINDOW_WIDTH = 1024;
+	const static int				WINDOW_HEIGHT = 640;
 	const static int				FPS = 60;
 
 	//Player
@@ -44,5 +49,6 @@ public:
 	const static int				ZED_KILL_DISTANCE	= 10;
 	static constexpr const double	ZED_VELOCITY		= 0.1;
 
-	//iunno
+	//iunnothis->tileCoords[Grass] = Vector2f(384, 192);
+	
 };
