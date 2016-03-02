@@ -1,6 +1,13 @@
-*.tlog
-group-project.sdf
 group-project.VC.opendb
+group-project.sdf
+group-project.sln
+group-project/Debug/group-project.tlog/CL.command.1.tlog
+group-project/Debug/group-project.tlog/CL.read.1.tlog
+group-project/Debug/group-project.tlog/CL.write.1.tlog
+group-project/Debug/group-project.tlog/group-project.lastbuildstate
+group-project/Debug/group-project.tlog/link.command.1.tlog
+group-project/Debug/group-project.tlog/link.read.1.tlog
+group-project/Debug/group-project.tlog/link.write.1.tlog
 group-project/Debug/vc140.idb
-group-project.opensdf
 group-project/group-project.vcxproj
+group-project/group-project.vcxproj.filters
