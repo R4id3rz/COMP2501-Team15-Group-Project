@@ -12,6 +12,10 @@ View::View(Model* model)
 
 	//hardcoding and pushing a player/zed model to be rendered
 	//renderables.push_back(model->player);
+	for (int i = 0; i < model->vehicles.size(); i++)
+	{
+		renderables.push_back(model->vehicles[i]);
+	}
 	renderables.push_back(model->zed);
 	renderables.push_back(model->zed2);
 	renderables.push_back(model->zed3);
@@ -25,6 +29,13 @@ View::View(Model* model)
 	playerDead.setPosition(Config::WINDOW_WIDTH*1/4, Config::WINDOW_HEIGHT*3/4);
 	playerDead.setCharacterSize(20);
 	playerDead.setColor(sf::Color::Red);
+
+	inVehicle.setString("Press Z to enter vehicle.");
+	inVehicle.setFont(font);
+	inVehicle.setStyle(sf::Text::Bold);
+	inVehicle.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 4 / 5);
+	inVehicle.setCharacterSize(20);
+	inVehicle.setColor(sf::Color::Red);
 
 	//Initialize VertexArray
 	this->worldSprites.loadFromFile("spritesheet.png");
@@ -52,9 +63,14 @@ void View::render()
 {
 	//Update sprites
 	updateView();
+	
 	std::cout << "P Pos: (" << model->player->position.x << ", " << model->player->position.y << ")" << std::endl;
+
 	for (int i = 0; i < renderables.size(); i++) {		//Updates positions of sprites in renderables[n] relative to the player's sprite's position
-		renderables[i]->sprite.setPosition(model->player->sprite.getPosition()+renderables[i]->position - model->player->position);
+		if (model->player->inVehicle == Config::VEH_FALSE)
+			renderables[i]->sprite.setPosition(model->player->sprite.getPosition()+renderables[i]->position - model->player->position);
+		else
+			renderables[i]->sprite.setPosition(model->player->vehicle->sprite.getPosition() + renderables[i]->position - model->player->vehicle->position);
 	}
 	//Draw sprites
 	this->window.clear();
@@ -68,15 +84,30 @@ void View::render()
 	{
 		window.draw(playerDead);
 	}
-	this->window.draw(model->player->sprite);
+	
+	if (model->player->inVehicle == Config::VEH_FALSE) //not in vehicle, draw player
+	{
+		this->window.draw(model->player->sprite);
+	}
+	else //in vehicle, draw vehicle
+	{
+		model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
+		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection());
+		this->window.draw(model->player->vehicle->sprite);
+	}
+	window.draw(inVehicle);
+	
+	
 	this->window.display();
 }
 
 void View::updateView() {	//Update the VertexArray here
 	float pX, pY, sX, sY;				//p = player's position (in world), s = current tile's position (in window)
 	int wX, wY, tileNum;				//w = world tile corresponding to current tile, tileNum = worldData of current tile
+		
 	pX = model->player->position.x;
 	pY = model->player->position.y;
+
 	for (int i = 0; i < tileCols; i++) {
 		for (int j = 0; j < tileRows; j++) {
 			//GET CURRENT TILE WORLD TILE

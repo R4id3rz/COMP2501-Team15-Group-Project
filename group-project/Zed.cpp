@@ -8,12 +8,11 @@ Zed::Zed(Player* player, int x, int y) //accepts a player pointer to check its v
 	image.loadFromFile(Config::ZED_IMAGE);
 	image.createMaskFromColor(sf::Color::White);
 
-	textures.push_back(sf::Texture()); //crude system for having different textures for animation purposes (only 1 frame atm)
-	textures.back().setSmooth(true);
-	textures.back().loadFromImage(image);
+	texture.setSmooth(true);
+	texture.loadFromImage(image);
 
-	sprite.setTexture(textures.back()); //init sprite
-	sprite.setOrigin(textures.back().getSize().x / 2, textures.back().getSize().y / 2);
+	sprite.setTexture(texture); //init sprite
+	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
 
 	this->player = player;
 }

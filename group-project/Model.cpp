@@ -11,11 +11,18 @@ Model::Model()
 	zed2 = new Zed(player, 1200, 200);
 	zed3 = new Zed(player, 1200, 300);
 	zed4 = new Zed(player, 1200, 400);
+	this->vehicles.push_back(new Tank(500, 550));
+	this->vehicles.push_back(new Tank(450, 550));
+	this->vehicles.push_back(new Tank(500, 500));
 	this->updatables.push_back(player);
 	this->updatables.push_back(zed);
 	this->updatables.push_back(zed2);
 	this->updatables.push_back(zed3);
 	this->updatables.push_back(zed4);
+	for (int i = 0; i < this->vehicles.size(); i++)
+	{
+		this->updatables.push_back(vehicles[i]);
+	}
 
 	//Load world from file
 	std::ifstream fileReader;

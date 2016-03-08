@@ -24,6 +24,7 @@ public:
 	//temp string
 	sf::Font font;
 	sf::Text playerDead;
+	sf::Text inVehicle;
 
 private:
 	//World representation through VertexArray

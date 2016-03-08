@@ -7,7 +7,10 @@ public:
 	Vehicle(float, float, float, int);				//Initialize consts and fuel, sets other variables to 0 or false
 	~Vehicle();
 
-	virtual float getDirection() = 0;
+	int getDirection();
+	void setDirection(int);
+	sf::Vector2f getVelocity();
+	void setVelocity(float, float);
 
 	void accelerate();								//Tell vehicle to be accelerating
 	void reverse();									//Tell vehicle to decelerate
@@ -17,9 +20,10 @@ public:
 	void update(sf::Time);
 protected:
 	int fuel;
-	float direction, delTurn;						//Direction in degreees, 0 = East-ward
+	int direction, delTurn;						//Direction in degreees, 0 = East-ward
 	float speed;									//Like velocity except without direction
-
+	
+	sf::Vector2f velocity;
 
 	const float turnRate, acceleration, maxSpeed;
 	bool accel, decel;
