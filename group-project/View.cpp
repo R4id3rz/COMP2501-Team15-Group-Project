@@ -30,12 +30,19 @@ View::View(Model* model)
 	playerDead.setCharacterSize(20);
 	playerDead.setColor(sf::Color::Red);
 
-	inVehicle.setString("Press Z to enter vehicle.");
+	inVehicle.setString("Z to enter vehicle. X to exit.");
 	inVehicle.setFont(font);
 	inVehicle.setStyle(sf::Text::Bold);
 	inVehicle.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 4 / 5);
 	inVehicle.setCharacterSize(20);
 	inVehicle.setColor(sf::Color::Red);
+
+	VehFuel.setString("Fuel: ");
+	VehFuel.setFont(font);
+	VehFuel.setStyle(sf::Text::Bold);
+	VehFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6);
+	VehFuel.setCharacterSize(20);
+	VehFuel.setColor(sf::Color::Red);
 
 	//Initialize VertexArray
 	this->worldSprites.loadFromFile("spritesheet.png");
@@ -94,9 +101,10 @@ void View::render()
 		model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
 		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection());
 		this->window.draw(model->player->vehicle->sprite);
+		VehFuel.setString("Fuel: " + std::to_string(model->player->vehicle->getFuel()));
+		this->window.draw(VehFuel);
 	}
 	window.draw(inVehicle);
-	
 	
 	this->window.display();
 }

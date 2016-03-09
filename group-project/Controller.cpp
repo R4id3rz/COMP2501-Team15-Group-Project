@@ -49,8 +49,10 @@ void Controller::inputs()
 
 	if (model->player->inVehicle == Config::VEH_TRUE) //in vehicle
 	{
+		model->player->vehicle->decreaseFuel(Config::IDLE_USAGE);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))						//up arrow is pressed
 		{
+			model->player->vehicle->decreaseFuel(Config::MOVING_USAGE);
 			float radAngle = model->player->vehicle->getDirection() * PI / 180; //computes vehicle's angle in radians
 			float newX = 0 * std::cos(radAngle) - (-2) * std::sin(radAngle);	//rotates a velocity vector of (0,-5) to player's angle
 			float newY = 0 * std::sin(radAngle) + (-2) * std::cos(radAngle);
@@ -59,6 +61,7 @@ void Controller::inputs()
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))				//down arrow is pressed
 		{
+			model->player->vehicle->decreaseFuel(Config::MOVING_USAGE);
 			float radAngle = model->player->vehicle->getDirection() * PI / 180; //same as above, but with (0,5) vector
 			float newX = 0 * std::cos(radAngle) - 2 * std::sin(radAngle);
 			float newY = 0 * std::sin(radAngle) + 2 * std::cos(radAngle);
@@ -72,10 +75,12 @@ void Controller::inputs()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))						//left arrow
 		{
+			model->player->vehicle->decreaseFuel(Config::MOVING_USAGE);
 			model->player->vehicle->setDirection((model->player->vehicle->getDirection() - 2) % 360);	//rotates vehicle angle
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))				//right arrow
 		{
+			model->player->vehicle->decreaseFuel(Config::MOVING_USAGE);
 			model->player->vehicle->setDirection((model->player->vehicle->getDirection() + 2) % 360);	//rotates vehicle angle
 		}
 		

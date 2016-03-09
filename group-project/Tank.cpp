@@ -20,8 +20,12 @@ Tank::~Tank() {
 }
 
 void Tank::update(sf::Time time) {
-	position.x += velocity.x;			//calculates the tank's position
-	position.y += velocity.y;
+	if (fuel > 0)
+	{
+		position.x += velocity.x;			//calculates the tank's position
+		position.y += velocity.y;
+	}
+	
 	
 	/*   Keanu's code
 	if (accel || decel || (speed != 0)) {				//Vehicle only turns when moving

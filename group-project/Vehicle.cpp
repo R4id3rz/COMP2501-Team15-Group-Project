@@ -12,10 +12,18 @@ Vehicle::Vehicle(float acceleration, float maxSpeed, float turnRate, int fuel)
 
 Vehicle::~Vehicle() { }
 
-int Vehicle::getDirection() { return direction; }
+int Vehicle::getDirection()			{ return direction; }
 sf::Vector2f Vehicle::getVelocity() { return velocity;  }
+int Vehicle::getFuel()				{ return fuel;		}
 
 void Vehicle::setDirection(int angle) { direction = angle;  }
+void Vehicle::decreaseFuel(int amount)
+{ 
+	if (fuel > 0)
+		fuel = fuel - amount; 
+	if (fuel < 0)
+		fuel = 0;
+}
 
 void Vehicle::setVelocity(float x, float y)
 {

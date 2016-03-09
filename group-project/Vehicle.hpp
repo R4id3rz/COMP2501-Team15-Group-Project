@@ -11,6 +11,8 @@ public:
 	void setDirection(int);
 	sf::Vector2f getVelocity();
 	void setVelocity(float, float);
+	int getFuel();
+	void decreaseFuel(int);
 
 	void accelerate();								//Tell vehicle to be accelerating
 	void reverse();									//Tell vehicle to decelerate

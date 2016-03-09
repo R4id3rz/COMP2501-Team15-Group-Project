@@ -52,6 +52,8 @@ public:
 
 	//Tank
 	static constexpr const char*	TANK_IMAGE			= "Tank.png";
+	const static int				IDLE_USAGE			= 5;
+	const static int				MOVING_USAGE		= 15;
 
 	//Car
 	static constexpr const char*	CAR_IMAGE			= "Car.png";
