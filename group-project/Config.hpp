@@ -8,17 +8,17 @@
 #define TANKMAXSPEED		0.1
 #define TANKTURNRATE		1
 #define TANKACCELERATION	0.001
-#define TANKFUEL			15000
+#define TANKFUEL			25000
 //Car
-#define CARMAXSPEED			10
+#define CARMAXSPEED			0.5
 #define CARTURNRATE			4
-#define CARACCELERATION		0.1
-#define CARFUEL				6000
+#define CARACCELERATION		0.01
+#define CARFUEL				10000
 //Truck
 #define	TRUCKMAXSPEED		2
 #define	TRUCKTURNRATE		2
 #define	TRUCKACCELERATION	0.1
-#define	TRUCKFUEL			10000
+#define	TRUCKFUEL			15000
 
 #define TILESIZE			64
 
@@ -45,7 +45,7 @@ public:
 
 	//Zed
 	static constexpr const char*	ZED_IMAGE			= "EnemySlime.png";
-	const static int				ZED_FOLLOW_DISTANCE	= 500;								//Zeds will follow under this distance
+	const static int				ZED_FOLLOW_DISTANCE	= 300;								//Zeds will follow under this distance
 	const static int				ZED_AMOUNT			= 4;
 	const static int				ZED_KILL_DISTANCE	= 10;
 	static constexpr const double	ZED_VELOCITY		= 0.1;

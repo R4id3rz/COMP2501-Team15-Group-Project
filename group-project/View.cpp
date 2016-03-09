@@ -98,7 +98,7 @@ void View::render()
 	else //in vehicle, draw vehicle
 	{
 		model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
-		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection()+90);
+		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection());
 		this->window.draw(model->player->vehicle->sprite);
 		VehFuel.setString("Fuel: " + std::to_string(model->player->vehicle->getFuel()));
 		this->window.draw(VehFuel);

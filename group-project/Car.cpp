@@ -9,11 +9,12 @@ Car::Car(float x, float y)
 	image.loadFromFile(Config::CAR_IMAGE);
 	image.createMaskFromColor(sf::Color::White);
 
-	texture.setSmooth(true);
 	texture.loadFromImage(image);
+	texture.setSmooth(true);
 
 	sprite.setTexture(texture); //init sprite
 	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
+	sprite.setScale(0.2, 0.2);
 }
 
 Car::~Car() {

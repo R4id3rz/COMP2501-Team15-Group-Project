@@ -49,7 +49,6 @@ void Controller::inputs()
 
 	if (model->player->inVehicle == Config::VEH_TRUE) //in vehicle
 	{
-		//model->player->vehicle->decreaseFuel(Config::IDLE_USAGE);
 		//    using Keanu's code.
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{

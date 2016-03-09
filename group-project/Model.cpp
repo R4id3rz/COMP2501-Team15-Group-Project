@@ -14,6 +14,7 @@ Model::Model()
 	this->vehicles.push_back(new Tank(500, 550));
 	this->vehicles.push_back(new Tank(450, 550));
 	this->vehicles.push_back(new Tank(500, 500));
+	this->vehicles.push_back(new Car(300, 300));
 	//this->updatables.push_back(player);
 	this->updatables.push_back(zed);
 	this->updatables.push_back(zed2);
