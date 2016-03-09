@@ -5,12 +5,29 @@
 Tank::Tank(float x, float  y)
 	: Vehicle(TANKACCELERATION, TANKMAXSPEED, TANKTURNRATE, TANKFUEL) {
 	position.x = x, position.y = y;
+
+	image.loadFromFile(Config::TANK_IMAGE);
+	image.createMaskFromColor(sf::Color::White);
+
+	texture.setSmooth(true);
+	texture.loadFromImage(image);
+
+	sprite.setTexture(texture); //init sprite
+	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y * 2/3);
 }
 
 Tank::~Tank() {
 }
 
 void Tank::update(sf::Time time) {
+	if (fuel > 0)
+	{
+		position.x += velocity.x;			//calculates the tank's position
+		position.y += velocity.y;
+	}
+	
+	
+	/*   Keanu's code
 	if (accel || decel || (speed != 0)) {				//Vehicle only turns when moving
 		direction += delTurn;
 		if (direction > 360) { direction -= 360; }
@@ -31,11 +48,12 @@ void Tank::update(sf::Time time) {
 		if (speed > 0) { speed -= acceleration; }
 		else if (speed < 0) { speed += acceleration; }
 	}
-	velocity.x = speed * cos(direction * PI / 180) * time.asMilliseconds();		//This might be somewhat redundant.
-	velocity.y = speed * sin(direction * PI / 180) * time.asMilliseconds();
-	position.x += velocity.x;
-	position.y += velocity.y;
+	velocity.x = speed * cos(direction * PI / 180);		//This might be somewhat redundant.
+	velocity.y = speed * sin(direction * PI / 180);
+	position.x += velocity.x * time.asMilliseconds();
+	position.y += velocity.y * time.asMilliseconds();
 
 	accel = decel = false;
 	delTurn = 0;
+	*/
 }

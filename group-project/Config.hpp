@@ -41,6 +41,7 @@ public:
 	const static int				PLAYER_START_POS_Y  = 450;
 	static constexpr const char*	PLAYER_IMAGE		= "FriendlySlime.png";				//constexpr is used to bypass some fked up C++ syntax bullshit
 	static constexpr const double	PLAYER_VELOCITY		= 0.2;
+	const static int				VEH_ENTER_DISTANCE	= 20;
 
 	//Zed
 	static constexpr const char*	ZED_IMAGE			= "EnemySlime.png";
@@ -48,6 +49,14 @@ public:
 	const static int				ZED_AMOUNT			= 4;
 	const static int				ZED_KILL_DISTANCE	= 10;
 	static constexpr const double	ZED_VELOCITY		= 0.1;
+
+	//Tank
+	static constexpr const char*	TANK_IMAGE			= "Tank.png";
+	const static int				IDLE_USAGE			= 5;
+	const static int				MOVING_USAGE		= 15;
+
+	//Car
+	static constexpr const char*	CAR_IMAGE			= "Car.png";
 
 	//iunnothis->tileCoords[Grass] = Vector2f(384, 192);
 	
