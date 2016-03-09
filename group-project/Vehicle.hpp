@@ -10,7 +10,7 @@ public:
 	int getDirection();
 	void setDirection(int);
 	sf::Vector2f getVelocity();
-	void setVelocity(float, float);
+	//void setVelocity(float, float);
 	int getFuel();
 	void decreaseFuel(int);
 

@@ -5,9 +5,9 @@
 
 //Vehicle consts
 //Tank
-#define TANKMAXSPEED		2
+#define TANKMAXSPEED		0.1
 #define TANKTURNRATE		1
-#define TANKACCELERATION	0.05
+#define TANKACCELERATION	0.001
 #define TANKFUEL			15000
 //Car
 #define CARMAXSPEED			10
@@ -15,9 +15,9 @@
 #define CARACCELERATION		0.1
 #define CARFUEL				6000
 //Truck
-#define	TRUCKMAXSPEED		4
+#define	TRUCKMAXSPEED		2
 #define	TRUCKTURNRATE		2
-#define	TRUCKACCELERATION	0.6
+#define	TRUCKACCELERATION	0.1
 #define	TRUCKFUEL			10000
 
 #define TILESIZE			64
@@ -57,7 +57,4 @@ public:
 
 	//Car
 	static constexpr const char*	CAR_IMAGE			= "Car.png";
-
-	//iunnothis->tileCoords[Grass] = Vector2f(384, 192);
-	
 };

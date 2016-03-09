@@ -14,15 +14,11 @@ Model::Model()
 	this->vehicles.push_back(new Tank(500, 550));
 	this->vehicles.push_back(new Tank(450, 550));
 	this->vehicles.push_back(new Tank(500, 500));
-	this->updatables.push_back(player);
+	//this->updatables.push_back(player);
 	this->updatables.push_back(zed);
 	this->updatables.push_back(zed2);
 	this->updatables.push_back(zed3);
 	this->updatables.push_back(zed4);
-	for (int i = 0; i < this->vehicles.size(); i++)
-	{
-		this->updatables.push_back(vehicles[i]);
-	}
 
 	//Load world from file
 	std::ifstream fileReader;
@@ -37,6 +33,11 @@ Model::Model()
 	for (int i = 0; i < worldRows; i++) {		//Format: worldData[row][column]
 		for (int j = 0; j < worldCols; j++) {
 			fileReader >> worldData[i][j];
+			
+			if (worldData[i][j] >= zGrass && worldData[i][j] <= zwnRoad) {
+				updatables.push_back(new Zed(player, j*TILESIZE, i*TILESIZE));
+			}
+			
 			if (worldData[i][j] < 10) {
 				std::cout << "0" << worldData[i][j] << " ";
 			}
@@ -51,8 +52,12 @@ Model::~Model()
 
 void Model::update(sf::Time deltaTime)
 {
+	player->update(deltaTime);
 	for (int i = 0; i < this->updatables.size(); i++) //loops through updatables array and updates everything in it
 	{
 		updatables[i]->update(deltaTime);
+	}
+	if (player->vehicle != 0) {
+		player->vehicle->update(deltaTime);
 	}
 }

@@ -16,10 +16,9 @@ View::View(Model* model)
 	{
 		renderables.push_back(model->vehicles[i]);
 	}
-	renderables.push_back(model->zed);
-	renderables.push_back(model->zed2);
-	renderables.push_back(model->zed3);
-	renderables.push_back(model->zed4);
+	for (int i = 0; i < model->updatables.size(); i++) {
+		renderables.push_back(model->updatables[i]);
+	}
 
 	//temp font indicator
 	font.loadFromFile("arial.ttf");
@@ -92,14 +91,14 @@ void View::render()
 		window.draw(playerDead);
 	}
 	
-	if (model->player->inVehicle == Config::VEH_FALSE) //not in vehicle, draw player
+	if (model->player->vehicle == 0)//inVehicle == Config::VEH_FALSE) //not in vehicle, draw player
 	{
 		this->window.draw(model->player->sprite);
 	}
 	else //in vehicle, draw vehicle
 	{
 		model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
-		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection());
+		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection()+90);
 		this->window.draw(model->player->vehicle->sprite);
 		VehFuel.setString("Fuel: " + std::to_string(model->player->vehicle->getFuel()));
 		this->window.draw(VehFuel);

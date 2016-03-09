@@ -25,11 +25,11 @@ void Vehicle::decreaseFuel(int amount)
 		fuel = 0;
 }
 
-void Vehicle::setVelocity(float x, float y)
-{
-	velocity.x = x;
-	velocity.y = y;
-}
+//void Vehicle::setVelocity(float x, float y)
+//{
+//	velocity.x = x;
+//	velocity.y = y;
+//}
 
 void Vehicle::accelerate() {
 	accel = true;
@@ -48,31 +48,40 @@ void Vehicle::turnRight() {
 }
 
 void Vehicle::update(sf::Time time) {
-	if (accel || decel || (speed != 0)) {				//Vehicle only turns when moving
-														//Will override Tank subclass to allow turning while stationary.
-		direction += delTurn;
-		if (direction > 360) { direction -= 360; }
-		else if (direction < 0) { direction += 360; }
-	}
+	if (fuel > 0) {
+		if (accel || decel || (speed != 0)) {				//Vehicle only turns when moving
+			direction += delTurn;
+			if (direction > 360) { direction -= 360; }
+			else if (direction < 0) { direction += 360; }
+			decreaseFuel(Config::MOVING_USAGE);
+		}
+		else {
+			decreaseFuel(Config::IDLE_USAGE);
+		}
 
-	if (accel) {										//I try to avoid dividing acceleration to make sure speed can get to zero
-		if (speed < maxSpeed) {
-			speed += acceleration;
+		if (accel) {										//I try to avoid dividing acceleration to make sure speed can get to zero
+			if (speed < maxSpeed) {
+				speed += acceleration;
+			}
 		}
-	}
-	else if (decel) {
-		if (speed > (-maxSpeed / 2)) {
-			speed -= acceleration;
+		else if (decel) {
+			if (speed > (-maxSpeed / 2)) {
+				speed -= acceleration;
+			}
 		}
+		else if (speed != 0) {
+			if (speed > 0) { speed -= acceleration; }
+			else if (speed < 0) { speed += acceleration; }
+		}
+		if ((speed < acceleration) && (speed > -acceleration)) {//account for weird calculations stopping speed from ever reaching 0
+			speed = 0;
+		}
+
+		velocity.x = speed * cos(direction * PI / 180) * time.asMilliseconds();		//This might be somewhat redundant.
+		velocity.y = speed * sin(direction * PI / 180) * time.asMilliseconds();
+		position.x += velocity.x;
+		position.y += velocity.y;
 	}
-	else if (speed != 0) {
-		if (speed > 0) { speed -= acceleration; }
-		else if (speed < 0) { speed += acceleration; }
-	}
-	velocity.x = speed * cos(direction * PI / 180) * time.asMilliseconds();		//This might be somewhat redundant.
-	velocity.y = speed * sin(direction * PI / 180) * time.asMilliseconds();
-	position.x += velocity.x;
-	position.y += velocity.y;
 
 	accel = decel = false;
 	delTurn = 0;
