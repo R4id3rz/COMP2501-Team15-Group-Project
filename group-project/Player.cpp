@@ -3,7 +3,7 @@
 //blah
 
 Player::Player()
-{
+	: vehicle(0)  {
 	position.x = Config::PLAYER_START_POS_X; //hardcoded init location
 	position.y = Config::PLAYER_START_POS_Y;
 
