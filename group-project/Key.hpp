@@ -1,9 +1,15 @@
 #pragma once
 
-/*
-include "Entity.hpp"
+#include "Vehicle.hpp"
+#include "Item.hpp"
+#include "Entity.hpp"
 
-Data:
-pointer to vehicle
+class Key : public Item {
+public:
+	Key();
+	Vehicle* getVehicle();
+	void setVehicle(Vehicle*);
+private:
+	Vehicle* vehicle;
 
-*/
+};

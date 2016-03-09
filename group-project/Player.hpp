@@ -10,6 +10,8 @@ inventory vector
 */
 
 #include "Actor.hpp"
+#include "Fuel.hpp"
+#include "Key.hpp"
 
 class Player : public Actor
 {
@@ -21,4 +23,14 @@ public:
 
 	void update(sf::Time);
 	bool getDeath();
+
+	void setFuel(int);
+	int getFuel();
+
+	void setKey(Key, int);
+	Key getKey(int);
+
+private:
+	Fuel fuel;
+	Key keys[];
 };

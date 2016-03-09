@@ -31,3 +31,19 @@ bool Player::getDeath()
 {
 	return this->isDead;
 }
+
+void Player::setFuel(int n) {
+	fuel.setAmount(n);
+}
+
+int Player::getFuel() {
+	return fuel.getAmount();
+}
+
+Key Player::getKey(int n) {
+	return keys[n];
+}
+
+void Player::setKey(Key k, int n) {
+	keys[n] = k;
+}
