@@ -4,7 +4,7 @@
 #include <math.h>
 
 View::View(Model* model)
-	: winRows(10), winCols(16), tileRows(11), tileCols(17)
+	: winRows(10), winCols(16), tileRows(winRows+1), tileCols(winCols+1)
 {
 	this->model = model;
 	this->window.create(sf::VideoMode(Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT), "COMP2501 Group Project");
@@ -80,8 +80,8 @@ void View::updateView() {	//Update the VertexArray here
 	for (int i = 0; i < tileCols; i++) {
 		for (int j = 0; j < tileRows; j++) {
 			//GET CURRENT TILE WORLD TILE
-			wX = floor((pX - ((tileCols-1)*TILESIZE / 2)) / TILESIZE) + i;
-			wY = floor((pY - ((tileRows-1)*TILESIZE / 2)) / TILESIZE) + j;
+			wX = floor((pX - ((winCols)*TILESIZE / 2)) / TILESIZE) + i;
+			wY = floor((pY - ((winRows)*TILESIZE / 2)) / TILESIZE) + j;
 			tileNum = Grass;																//default tile to draw is grass
 			if ((wX >= 0 && wY >= 0) && (wX < model->worldCols && wY < model->worldRows)) {	//avoid index out of bounds
 				tileNum = model->worldData[wY][wX];
