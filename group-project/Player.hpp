@@ -29,6 +29,7 @@ public:
 
 	void setKey(Key, int);
 	Key getKey(int);
+	Vehicle* vehicle;
 
 private:
 	Fuel fuel;
