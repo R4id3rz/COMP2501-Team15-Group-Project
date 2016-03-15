@@ -3,10 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Entity.hpp"
-#include "Updateable.hpp"
-#include "Renderable.hpp"
 
-class Actor : public Entity, public Updateable, public Renderable
+
+class Actor : public Entity, public Updateable
 {
 
 public:

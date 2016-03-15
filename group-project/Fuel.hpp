@@ -5,7 +5,8 @@
 
 class Fuel : public Item {
 public:
-	Fuel();
+	Fuel(int, int);
+	sf::Vector2f getPosition();
 	int getAmount();
 	void setAmount(int);
 private:

@@ -1,8 +1,11 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "Config.hpp"
 
-class Entity
+#include "Config.hpp"
+#include "Updateable.hpp"
+#include "Renderable.hpp"
+
+class Entity: public Renderable
 {
 
 public:

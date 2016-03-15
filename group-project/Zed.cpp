@@ -5,11 +5,12 @@ Zed::Zed(Player* player, int x, int y) //accepts a player pointer to check its v
 	position.x = x; //hardcoded init location
 	position.y = y;
 
-	image.loadFromFile(Config::ZED_IMAGE);
-	image.createMaskFromColor(sf::Color::White);
+	//image.loadFromFile(Config::TANK_IMAGE);
+	//image.createMaskFromColor(sf::Color::White);
+	//texture.loadFromImage(image);
 
+	texture.loadFromFile(Config::ZED_IMAGE);
 	texture.setSmooth(true);
-	texture.loadFromImage(image);
 
 	sprite.setTexture(texture); //init sprite
 	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);

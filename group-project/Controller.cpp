@@ -24,25 +24,33 @@ void Controller::inputs()
 		}
 	}
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
-		for (int i = 0; i < model->vehicles.size(); i++)
+		if (model->player->inVehicle == Config::VEH_FALSE)
 		{
-			float distance = sqrt(std::pow(model->player->position.x - model->vehicles[i]->position.x, 2) + std::pow(model->player->position.y - model->vehicles[i]->position.y, 2));
-			std::cout << distance << std::endl;
-			if (distance < Config::VEH_ENTER_DISTANCE)
+			for (int i = 0; i < model->vehicles.size(); i++)
 			{
-				model->player->inVehicle = Config::VEH_TRUE;
-				model->player->vehicle = model->vehicles[i];
+				float distance = sqrt(std::pow(model->player->position.x - model->vehicles[i]->position.x, 2) + std::pow(model->player->position.y - model->vehicles[i]->position.y, 2));
+				std::cout << distance << std::endl;
+				if (distance < Config::VEH_ENTER_DISTANCE)
+				{
+					model->player->inVehicle = Config::VEH_TRUE;
+					model->player->vehicle = model->vehicles[i];
+				}
 			}
 		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{
-		model->player->inVehicle = Config::VEH_FALSE;
-		model->player->vehicle = 0;
+		if (model->player->inVehicle == Config::VEH_TRUE)
+		{
+			model->player->inVehicle = Config::VEH_FALSE;
+			model->player->vehicle = 0;
+		}
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+
+	//debug
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 	{
 		model->player->isDead = false;
 	}

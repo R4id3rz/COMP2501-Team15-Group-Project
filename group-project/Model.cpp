@@ -5,17 +5,25 @@
 
 Model::Model()
 {
-	//hardcoding and creating a player/zed and pushing to updatables
+	//hardcoding and creating a player/zed
 	player = new Player();
 	zed = new Zed(player, 1200, 100);
 	zed2 = new Zed(player, 1200, 200);
 	zed3 = new Zed(player, 1200, 300);
 	zed4 = new Zed(player, 1200, 400);
+
+	//init fuel *Spawn this randomly when init map*
+	this->fuels.push_back(new Fuel(550, 500));
+	this->fuels.push_back(new Fuel(600, 500));
+	this->fuels.push_back(new Fuel(400, 400));
+
+	//init vehicles
 	this->vehicles.push_back(new Tank(500, 550));
 	this->vehicles.push_back(new Tank(450, 550));
 	this->vehicles.push_back(new Tank(500, 500));
 	this->vehicles.push_back(new Car(300, 300));
-	//this->updatables.push_back(player);
+	
+	//push zeds to updatables
 	this->updatables.push_back(zed);
 	this->updatables.push_back(zed2);
 	this->updatables.push_back(zed3);
@@ -23,7 +31,7 @@ Model::Model()
 
 	//Load world from file
 	std::ifstream fileReader;
-	fileReader.open("map.txt");
+	fileReader.open("Assets/map.txt");
 	fileReader >> worldCols;
 	fileReader >> worldRows;
 	worldData = new int*[worldRows];

@@ -17,13 +17,14 @@ public:
 
 	bool gameRunning = true;
 
-	std::vector<Actor *> renderables;
+	std::vector<Entity *> renderables;
 
 	void render();
 
 	//temp string
 	sf::Font font;
 	sf::Text playerDead;
+	sf::Text playerFuel;
 	sf::Text inVehicle;
 	sf::Text VehFuel;
 

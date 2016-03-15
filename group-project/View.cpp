@@ -16,12 +16,16 @@ View::View(Model* model)
 	{
 		renderables.push_back(model->vehicles[i]);
 	}
+	for (int i = 0; i < model->fuels.size(); i++)
+	{
+		renderables.push_back(model->fuels[i]);
+	}
 	for (int i = 0; i < model->updatables.size(); i++) {
 		renderables.push_back(model->updatables[i]);
 	}
 
 	//temp font indicator
-	font.loadFromFile("arial.ttf");
+	font.loadFromFile("Assets/arial.ttf");
 	playerDead.setString("Player Died. Press C to Revive.");
 	playerDead.setFont(font);
 	playerDead.setStyle(sf::Text::Bold);
@@ -29,12 +33,19 @@ View::View(Model* model)
 	playerDead.setCharacterSize(20);
 	playerDead.setColor(sf::Color::Red);
 
-	inVehicle.setString("Z to enter vehicle. X to exit.");
+	inVehicle.setString("E to Enter/Exit Vehicle");
 	inVehicle.setFont(font);
 	inVehicle.setStyle(sf::Text::Bold);
 	inVehicle.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 4 / 5);
 	inVehicle.setCharacterSize(20);
 	inVehicle.setColor(sf::Color::Red);
+
+	playerFuel.setString("Player Fuel: ");
+	playerFuel.setFont(font);
+	playerFuel.setStyle(sf::Text::Bold);
+	playerFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5 / 6);
+	playerFuel.setCharacterSize(20);
+	playerFuel.setColor(sf::Color::Red);
 
 	VehFuel.setString("Fuel: ");
 	VehFuel.setFont(font);
@@ -44,7 +55,7 @@ View::View(Model* model)
 	VehFuel.setColor(sf::Color::Red);
 
 	//Initialize VertexArray
-	this->worldSprites.loadFromFile("spritesheet.png");
+	this->worldSprites.loadFromFile("Assets/spritesheet.png");
 	this->states.texture = &worldSprites;
 
 	this->worldQuads.setPrimitiveType(sf::Quads);
@@ -84,6 +95,11 @@ void View::render()
 	for (int i = 0; i < this->renderables.size(); i++) //loops through entire renderable array and renders their sprites
 	{
 		this->window.draw(renderables[i]->sprite);
+	}
+	//draw fuel, cannot put into renderables since not actor...
+	for (int i = 0; i < model->fuels.size(); i++)
+	{
+		this->window.draw(model->fuels[i]->sprite);
 	}
 	//temp display
 	if (model->player->getDeath())

@@ -11,6 +11,7 @@ instance of world object
 #include "Tank.hpp"
 #include "Car.hpp"
 #include "Truck.hpp"
+#include "Fuel.hpp"
 #include "Config.hpp"
 
 class Model
@@ -27,6 +28,7 @@ public:
 	Zed* zed3;
 	Zed* zed4;
 	std::vector<Vehicle*> vehicles;
+	std::vector<Fuel*> fuels;
 
 	int** worldData;
 	int worldCols, worldRows;

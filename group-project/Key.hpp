@@ -11,5 +11,4 @@ public:
 	void setVehicle(Vehicle*);
 private:
 	Vehicle* vehicle;
-
 };
