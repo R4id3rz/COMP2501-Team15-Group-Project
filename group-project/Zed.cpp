@@ -25,7 +25,7 @@ void Zed::update(sf::Time time) //updates Zed velocity according to player, will
 {
 	float distance = sqrt(std::pow(player->position.x - this->position.x, 2) + std::pow(player->position.y - this->position.y, 2));
 
-	if (distance < Config::ZED_KILL_DISTANCE)
+	if (distance < Config::ZED_KILL_DISTANCE && player->inVehicle == Config::VEH_FALSE)
 	{
 		player->isDead = true;
 	}

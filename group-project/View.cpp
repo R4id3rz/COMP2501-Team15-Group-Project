@@ -44,14 +44,14 @@ View::View(Model* model)
 	playerFuel.setString("Player Fuel: ");
 	playerFuel.setFont(font);
 	playerFuel.setStyle(sf::Text::Bold);
-	playerFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 4/6);
+	playerFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6);
 	playerFuel.setCharacterSize(20);
 	playerFuel.setColor(sf::Color::Red);
 
 	VehFuel.setString("Fuel: ");
 	VehFuel.setFont(font);
 	VehFuel.setStyle(sf::Text::Bold);
-	VehFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6);
+	VehFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6 + 20);
 	VehFuel.setCharacterSize(20);
 	VehFuel.setColor(sf::Color::Red);
 
