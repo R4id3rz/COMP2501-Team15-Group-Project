@@ -61,4 +61,5 @@ public:
 	//Fuel
 	const static int				DEFAULT_FUEL		= 10000;
 	static constexpr const char*	FUEL_IMAGE			= "Assets/JerryCan.png";
+	const static int				FUEL_PICKUP_DISTANCE = 20;
 };

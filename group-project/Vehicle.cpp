@@ -4,25 +4,32 @@
 #define PI 3.1415926
 
 Vehicle::Vehicle(float acceleration, float maxSpeed, float turnRate, int fuel)
-	: acceleration(acceleration), maxSpeed(maxSpeed), turnRate(turnRate), fuel(fuel) {
+	: acceleration(acceleration), maxSpeed(maxSpeed), turnRate(turnRate) {
 	velocity.x = velocity.y = speed = delTurn = 0;
 	direction = 0;
 	accel = decel = false;
+	this->fuel = new Fuel(0, 0, fuel);
 }
 
 Vehicle::~Vehicle() { }
 
 int Vehicle::getDirection()			{ return direction; }
 sf::Vector2f Vehicle::getVelocity() { return velocity;  }
-int Vehicle::getFuel()				{ return fuel;		}
+int Vehicle::getFuel()				{ return fuel->getAmount();	}
 
 void Vehicle::setDirection(int angle) { direction = angle;  }
+
 void Vehicle::decreaseFuel(int amount)
 { 
-	if (fuel > 0)
-		fuel = fuel - amount; 
-	if (fuel < 0)
-		fuel = 0;
+	if (fuel->getAmount() > 0)
+		fuel->removeFuel(amount); 
+	if (fuel->getAmount() < 0)
+		fuel->setAmount(0);
+}
+
+void Vehicle::addFuel(int amount)
+{
+	fuel->addFuel(amount);
 }
 
 //void Vehicle::setVelocity(float x, float y)

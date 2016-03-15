@@ -24,14 +24,15 @@ public:
 	void update(sf::Time);
 	bool getDeath();
 
+	void addFuel(int);
 	void setFuel(int);
 	int getFuel();
 
-	void setKey(Key, int);
-	Key getKey(int);
+	void setKey(Key*, int);
+	Key* getKey(int);
 	Vehicle* vehicle;
 
 private:
-	Fuel fuel;
-	Key keys[];
+	Fuel* fuel;
+	Key* keys[];
 };

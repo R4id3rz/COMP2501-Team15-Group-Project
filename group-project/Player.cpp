@@ -3,7 +3,7 @@
 //blah
 
 Player::Player()
-	: vehicle(0) , fuel(0,0) {
+	: vehicle(0){
 	position.x = Config::PLAYER_START_POS_X; //hardcoded init location
 	position.y = Config::PLAYER_START_POS_Y;
 
@@ -17,6 +17,8 @@ Player::Player()
 	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
 
 	inVehicle = Config::VEH_FALSE;
+
+	fuel = new Fuel(0, 0, 0);
 }
 
 Player::~Player()
@@ -41,18 +43,23 @@ bool Player::getDeath()
 	return this->isDead;
 }
 
-void Player::setFuel(int n) {
-	fuel.setAmount(n);
+void Player::addFuel(int n) {
+	fuel->addFuel(n);
 }
 
 int Player::getFuel() {
-	return fuel.getAmount();
+	return fuel->getAmount();
 }
 
-Key Player::getKey(int n) {
+void Player::setFuel(int n)
+{
+	fuel->setAmount(n);
+}
+
+Key* Player::getKey(int n) {
 	return keys[n];
 }
 
-void Player::setKey(Key k, int n) {
+void Player::setKey(Key* k, int n) {
 	keys[n] = k;
 }

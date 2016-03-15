@@ -13,9 +13,9 @@ Model::Model()
 	zed4 = new Zed(player, 1200, 400);
 
 	//init fuel *Spawn this randomly when init map*
-	this->fuels.push_back(new Fuel(550, 500));
-	this->fuels.push_back(new Fuel(600, 500));
-	this->fuels.push_back(new Fuel(400, 400));
+	this->fuels.push_back(new Fuel(550, 500, Config::DEFAULT_FUEL));
+	this->fuels.push_back(new Fuel(600, 500, Config::DEFAULT_FUEL));
+	this->fuels.push_back(new Fuel(400, 400, Config::DEFAULT_FUEL));
 
 	//init vehicles
 	this->vehicles.push_back(new Tank(500, 550));

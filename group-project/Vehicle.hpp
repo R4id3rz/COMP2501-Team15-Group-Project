@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Actor.hpp"
+#include "Fuel.hpp"
 
 class Vehicle: public Actor {
 public:
@@ -12,6 +13,7 @@ public:
 	sf::Vector2f getVelocity();
 	//void setVelocity(float, float);
 	int getFuel();
+	void addFuel(int);
 	void decreaseFuel(int);
 
 	void accelerate();								//Tell vehicle to be accelerating
@@ -21,7 +23,7 @@ public:
 
 	void update(sf::Time);
 protected:
-	int fuel;
+	Fuel* fuel;
 	int direction, delTurn;						//Direction in degreees, 0 = East-ward
 	float speed;									//Like velocity except without direction
 	

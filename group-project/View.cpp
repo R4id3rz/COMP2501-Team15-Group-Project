@@ -10,16 +10,17 @@ View::View(Model* model)
 	this->window.create(sf::VideoMode(Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT), "COMP2501 Group Project");
 	this->window.setFramerateLimit(Config::FPS);
 
-	//hardcoding and pushing a player/zed model to be rendered
-	//renderables.push_back(model->player);
+	//vehicles
 	for (int i = 0; i < model->vehicles.size(); i++)
 	{
 		renderables.push_back(model->vehicles[i]);
 	}
+	//fuel
 	for (int i = 0; i < model->fuels.size(); i++)
 	{
 		renderables.push_back(model->fuels[i]);
 	}
+	//updatables (zeds)
 	for (int i = 0; i < model->updatables.size(); i++) {
 		renderables.push_back(model->updatables[i]);
 	}
@@ -33,7 +34,7 @@ View::View(Model* model)
 	playerDead.setCharacterSize(20);
 	playerDead.setColor(sf::Color::Red);
 
-	inVehicle.setString("E to Enter/Exit Vehicle");
+	inVehicle.setString("Q to Enter Vehicle, E to Exit Vehicle");
 	inVehicle.setFont(font);
 	inVehicle.setStyle(sf::Text::Bold);
 	inVehicle.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 4 / 5);
@@ -43,7 +44,7 @@ View::View(Model* model)
 	playerFuel.setString("Player Fuel: ");
 	playerFuel.setFont(font);
 	playerFuel.setStyle(sf::Text::Bold);
-	playerFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5 / 6);
+	playerFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 4/6);
 	playerFuel.setCharacterSize(20);
 	playerFuel.setColor(sf::Color::Red);
 
@@ -96,11 +97,6 @@ void View::render()
 	{
 		this->window.draw(renderables[i]->sprite);
 	}
-	//draw fuel, cannot put into renderables since not actor...
-	for (int i = 0; i < model->fuels.size(); i++)
-	{
-		this->window.draw(model->fuels[i]->sprite);
-	}
 	//temp display
 	if (model->player->getDeath())
 	{
@@ -120,6 +116,8 @@ void View::render()
 		this->window.draw(VehFuel);
 	}
 	window.draw(inVehicle);
+	playerFuel.setString("Player Fuel: " + std::to_string(model->player->getFuel()));
+	this->window.draw(playerFuel);
 	
 	this->window.display();
 }

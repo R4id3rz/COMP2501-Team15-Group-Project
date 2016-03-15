@@ -34,8 +34,12 @@ void Controller::inputs()
 				std::cout << distance << std::endl;
 				if (distance < Config::VEH_ENTER_DISTANCE)
 				{
+					//when going in vehicle, put all player fuel into vehicle
 					model->player->inVehicle = Config::VEH_TRUE;
 					model->player->vehicle = model->vehicles[i];
+					int playerFuel = model->player->getFuel();
+					model->player->vehicle->addFuel(playerFuel);
+					model->player->setFuel(0);
 				}
 			}
 		}
@@ -44,7 +48,11 @@ void Controller::inputs()
 	{
 		if (model->player->inVehicle == Config::VEH_TRUE)
 		{
+			//remove all fuel from vehicle and put into player
 			model->player->inVehicle = Config::VEH_FALSE;
+			int vehFuel = model->player->vehicle->getFuel();
+			model->player->addFuel(vehFuel);
+			model->player->vehicle->decreaseFuel(vehFuel);
 			model->player->vehicle = 0;
 		}
 	}
@@ -53,6 +61,21 @@ void Controller::inputs()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 	{
 		model->player->isDead = false;
+	}
+
+	//fuel pickup
+	for (int i = 0; i < model->fuels.size(); i++)
+	{
+		float distance = sqrt(std::pow(model->player->position.x - model->fuels[i]->position.x, 2) + std::pow(model->player->position.y - model->fuels[i]->position.y, 2));
+		if (distance < Config::FUEL_PICKUP_DISTANCE)
+		{
+			//adds fuel amount to player, remove fuel from model & view renderables
+			model->player->addFuel(model->fuels[i]->getAmount());
+			//complicated removing from a vector without knowing position....
+			view->renderables.erase(std::remove(view->renderables.begin(), view->renderables.end(), model->fuels[i]), view->renderables.end());
+			model->fuels.erase(model->fuels.begin() + i);
+
+		}
 	}
 
 	if (model->player->inVehicle == Config::VEH_TRUE) //in vehicle
@@ -74,7 +97,6 @@ void Controller::inputs()
 		{
 			model->player->vehicle->turnRight();
 		}
-		
 	}
 	else //on foot
 	{
