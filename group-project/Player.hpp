@@ -16,7 +16,7 @@ inventory vector
 class Player : public Actor
 {
 public:
-	Player();
+	Player(float, float);
 	~Player();
 
 	int inVehicle = Config::VEH_FALSE;

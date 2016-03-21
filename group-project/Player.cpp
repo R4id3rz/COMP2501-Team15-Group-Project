@@ -2,10 +2,10 @@
 #include <iostream>
 //blah
 
-Player::Player()
-	: vehicle(0){
-	position.x = Config::PLAYER_START_POS_X; //hardcoded init location
-	position.y = Config::PLAYER_START_POS_Y;
+Player::Player(float x, float y)
+	: vehicle(0) {
+	position.x = x; //hardcoded init location
+	position.y = y;
 
 	image.loadFromFile(Config::PLAYER_IMAGE);
 	image.createMaskFromColor(sf::Color::White);

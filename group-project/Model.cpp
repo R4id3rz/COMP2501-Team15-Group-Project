@@ -6,7 +6,7 @@
 Model::Model()
 {
 	//hardcoding and creating a player/zed
-	player = new Player();
+	//player = new Player();
 	zed = new Zed(player, 1200, 100);
 	zed2 = new Zed(player, 1200, 200);
 	zed3 = new Zed(player, 1200, 300);
@@ -44,7 +44,10 @@ Model::Model()
 			fileReader >> worldData[i][j];
 			
 			if (worldData[i][j] >= zGrass && worldData[i][j] <= zwnRoad) {
-				updatables.push_back(new Zed(player, j*TILESIZE, i*TILESIZE));
+				updatables.push_back(new Zed(player, j*TILESIZE+TILESIZE/2, i*TILESIZE+TILESIZE/2));
+			}
+			if (worldData[i][j] == Start) {
+				player = new Player(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2);
 			}
 			
 			if (worldData[i][j] < 10) {
@@ -53,6 +56,12 @@ Model::Model()
 			else { std::cout << worldData[i][j] << " "; }
 		}
 		std::cout << std::endl;
+	}
+	if (player == 0) {
+		player = new Player(Config::PLAYER_START_POS_X, Config::PLAYER_START_POS_Y);
+	}
+	for (int i = 0; i < updatables.size(); i++) {
+		updatables[i]->player = this->player;
 	}
 }
 

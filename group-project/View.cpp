@@ -82,7 +82,7 @@ void View::render()
 	//Update sprites
 	updateView();
 	
-	std::cout << "P Pos: (" << model->player->position.x << ", " << model->player->position.y << ")" << std::endl;
+	//std::cout << "P Pos: (" << model->player->position.x << ", " << model->player->position.y << ")" << std::endl;
 
 	for (int i = 0; i < renderables.size(); i++) {		//Updates positions of sprites in renderables[n] relative to the player's sprite's position
 		if (model->player->inVehicle == Config::VEH_FALSE)
@@ -134,7 +134,7 @@ void View::updateView() {	//Update the VertexArray here
 			//GET CURRENT TILE WORLD TILE
 			wX = floor((pX - ((winCols)*TILESIZE / 2)) / TILESIZE) + i;
 			wY = floor((pY - ((winRows)*TILESIZE / 2)) / TILESIZE) + j;
-			tileNum = Grass;																//default tile to draw is grass
+			tileNum = Tree;																//default tile to draw is grass
 			if ((wX >= 0 && wY >= 0) && (wX < model->worldCols && wY < model->worldRows)) {	//avoid index out of bounds
 				tileNum = model->worldData[wY][wX];
 			}

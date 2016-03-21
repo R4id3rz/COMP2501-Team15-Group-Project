@@ -20,7 +20,7 @@ public:
 	Model();
 	~Model();
 
-	std::vector<Actor *> updatables;
+	std::vector<Zed *> updatables;
 
 	Player* player;
 	Zed* zed;
