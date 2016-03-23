@@ -30,6 +30,13 @@ Model::Model()
 	this->updatables.push_back(zed3);
 	this->updatables.push_back(zed4);
 
+	Car* car = new Car(400, 400);
+	this->keys.push_back(new Key(1200, 450, car));
+	this->keys.push_back(new Key(400, 60, car));
+	this->keys.push_back(new Key(600, 600, car));
+	this->keys.push_back(new Key(100, 900, car));
+	this->keys.push_back(new Key(800, 200, car));
+
 	//Load world from file
 	std::ifstream fileReader;
 	fileReader.open("Assets/map.txt");

@@ -20,9 +20,14 @@ View::View(Model* model)
 	{
 		renderables.push_back(model->fuels[i]);
 	}
+
 	//updatables (zeds)
 	for (int i = 0; i < model->updatables.size(); i++) {
 		renderables.push_back(model->updatables[i]);
+	}
+	//Keys
+	for (int i = 0; i < model->keys.size(); i++) {
+		renderables.push_back(model->keys[i]);
 	}
 
 	//temp font indicator
@@ -54,6 +59,13 @@ View::View(Model* model)
 	vehFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6 + 40);
 	vehFuel.setCharacterSize(20);
 	vehFuel.setColor(sf::Color::Red);
+
+	Keys.setString("Keys: ");
+	Keys.setFont(font);
+	Keys.setStyle(sf::Text::Bold);
+	Keys.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5 / 6 + 60);
+	Keys.setCharacterSize(20);
+	Keys.setColor(sf::Color::Red);
 
 	goalDistance.setString("Distance to Goal: ");
 	goalDistance.setFont(font);
@@ -148,6 +160,8 @@ void View::render()
 	window.draw(inVehicle);
 	playerFuel.setString("Player Fuel: " + std::to_string(model->player->getFuel()) + "L");
 	window.draw(playerFuel);
+	Keys.setString("Player Keys: " + std::to_string(model->player->getNumKeys()));
+	window.draw(Keys);
 	goalDistance.setString("Distance to Goal: " + std::to_string((int)model->distanceToGoal) + "m");
 	window.draw(goalDistance);
 	score.setString("Score: " + std::to_string(model->score));

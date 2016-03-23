@@ -28,11 +28,12 @@ public:
 	void setFuel(int);
 	int getFuel();
 
-	void setKey(Key*, int);
-	Key* getKey(int);
 	Vehicle* vehicle;
+	int getNumKeys();
+	void addKeys(int);
+	void removeKeys(int);
 
 private:
+	int numKeys = 0;
 	Fuel* fuel;
-	Key* keys[];
 };

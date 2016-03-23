@@ -6,7 +6,7 @@
 
 class Key : public Item {
 public:
-	Key();
+	Key(int, int, Vehicle*);
 	Vehicle* getVehicle();
 	void setVehicle(Vehicle*);
 private:
