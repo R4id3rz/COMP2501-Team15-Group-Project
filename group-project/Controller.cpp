@@ -31,7 +31,7 @@ void Controller::inputs()
 			for (int i = 0; i < model->vehicles.size(); i++)
 			{
 				float distance = sqrt(std::pow(model->player->position.x - model->vehicles[i]->position.x, 2) + std::pow(model->player->position.y - model->vehicles[i]->position.y, 2));
-				std::cout << distance << std::endl;
+				//std::cout << distance << std::endl;
 				if (distance < Config::VEH_ENTER_DISTANCE)
 				{
 					//when going in vehicle, put all player fuel into vehicle
@@ -70,7 +70,10 @@ void Controller::inputs()
 		if (distance < Config::FUEL_PICKUP_DISTANCE)
 		{
 			//adds fuel amount to player, remove fuel from model & view renderables
-			model->player->addFuel(model->fuels[i]->getAmount());
+			if (model->player->inVehicle == Config::VEH_FALSE)
+				model->player->addFuel(model->fuels[i]->getAmount());
+			else
+				model->player->vehicle->addFuel(model->fuels[i]->getAmount());
 			//complicated removing from a vector without knowing position....
 			view->renderables.erase(std::remove(view->renderables.begin(), view->renderables.end(), model->fuels[i]), view->renderables.end());
 			model->fuels.erase(model->fuels.begin() + i);
