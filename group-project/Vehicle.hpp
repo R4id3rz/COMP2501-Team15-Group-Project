@@ -22,10 +22,10 @@ public:
 	void turnRight();								//Tell vehicle to turn right
 
 	void update(sf::Time);
+	float speed;									//Like velocity except without direction
 protected:
 	Fuel* fuel;
 	int direction, delTurn;						//Direction in degreees, 0 = East-ward
-	float speed;									//Like velocity except without direction
 	
 	sf::Vector2f velocity;
 

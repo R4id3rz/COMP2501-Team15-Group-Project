@@ -70,12 +70,70 @@ Model::~Model()
 
 void Model::update(sf::Time deltaTime)
 {
+	
+	//Update methods
 	player->update(deltaTime);
 	for (int i = 0; i < this->updatables.size(); i++) //loops through updatables array and updates everything in it
 	{
 		updatables[i]->update(deltaTime);
+		terrainBump(updatables[i]);
 	}
 	if (player->vehicle != 0) {
 		player->vehicle->update(deltaTime);
+		terrainBump(player->vehicle);
+	}
+	terrainBump(player);
+	//std::cout << "P pos: (" << player->position.x << ", " << player->position.y << ")" << std::endl;
+}
+
+void Model::terrainBump(Actor* actor) {
+	int tileX = floor(actor->position.x / TILESIZE);
+	int tileY = floor(actor->position.y / TILESIZE);
+	sf::Vector2f pos = sf::Vector2f(actor->position.x - tileX*TILESIZE, actor->position.y - tileY*TILESIZE);
+	if (tileX >= 0 && tileX < worldCols && tileY >= 0 && tileY < worldRows) {
+		if (worldData[tileY][tileX] == Tree) {
+			if (pos.x <= pos.y) {
+				if ((-pos.x + 64) <= pos.y) {		//actor is on south side of tile
+					actor->position.y += TILESIZE - pos.y;
+				}
+				else if ((-pos.x + 64) >= pos.y) {	//actor is on west side of tile
+					actor->position.x -= pos.x;
+				}
+			}
+			else if (pos.x >= pos.y) {
+				if ((-pos.x + 64) <= pos.y) {		//actor is on east side of tile
+					actor->position.x += TILESIZE - pos.x;
+				}
+				else if ((-pos.x + 64) >= pos.y) {	//actor is on north side of tile
+					actor->position.y -= pos.y;
+				}
+			}
+		}
+	}
+}
+void Model::terrainBump(Vehicle* actor) {
+	int tileX = floor(actor->position.x / TILESIZE);
+	int tileY = floor(actor->position.y / TILESIZE);
+	sf::Vector2f pos = sf::Vector2f(actor->position.x - tileX*TILESIZE, actor->position.y - tileY*TILESIZE);
+	if (tileX >= 0 && tileX < worldCols && tileY >= 0 && tileY < worldRows) {
+		if (worldData[tileY][tileX] == Tree) {
+			if (pos.x <= pos.y) {
+				if ((-pos.x + 64) <= pos.y) {		//actor is on south side of tile
+					actor->position.y += TILESIZE - pos.y;
+				}
+				else if ((-pos.x + 64) >= pos.y) {	//actor is on west side of tile
+					actor->position.x -= pos.x;
+				}
+			}
+			else if (pos.x >= pos.y) {
+				if ((-pos.x + 64) <= pos.y) {		//actor is on east side of tile
+					actor->position.x += TILESIZE - pos.x;
+				}
+				else if ((-pos.x + 64) >= pos.y) {	//actor is on north side of tile
+					actor->position.y -= pos.y;
+				}
+			}
+			actor->speed = 0;
+		}
 	}
 }

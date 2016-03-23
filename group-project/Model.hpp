@@ -34,4 +34,6 @@ public:
 	int worldCols, worldRows;
 
 	void update(sf::Time);
+	void terrainBump(Actor*);
+	void terrainBump(Vehicle*);
 };
