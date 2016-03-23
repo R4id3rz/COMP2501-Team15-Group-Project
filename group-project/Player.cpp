@@ -56,10 +56,16 @@ void Player::setFuel(int n)
 	fuel->setAmount(n);
 }
 
-Key* Player::getKey(int n) {
-	return keys[n];
+void Player::addKeys(int n) {
+	numKeys += n;
 }
 
-void Player::setKey(Key* k, int n) {
-	keys[n] = k;
+void Player::removeKeys(int n) {
+	if (numKeys >= n) {
+		numKeys -= n;
+	}
+}
+
+int Player::getNumKeys() {
+	return numKeys;
 }

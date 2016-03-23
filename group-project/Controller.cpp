@@ -34,12 +34,15 @@ void Controller::inputs()
 				//std::cout << distance << std::endl;
 				if (distance < Config::VEH_ENTER_DISTANCE)
 				{
-					//when going in vehicle, put all player fuel into vehicle
-					model->player->inVehicle = Config::VEH_TRUE;
-					model->player->vehicle = model->vehicles[i];
-					int playerFuel = model->player->getFuel();
-					model->player->vehicle->addFuel(playerFuel);
-					model->player->setFuel(0);
+					if (model->player->getNumKeys() > 0) {
+						//when going in vehicle, put all player fuel into vehicle
+						model->player->inVehicle = Config::VEH_TRUE;
+						model->player->vehicle = model->vehicles[i];
+						int playerFuel = model->player->getFuel();
+						model->player->vehicle->addFuel(playerFuel);
+						model->player->setFuel(0);
+						model->player->removeKeys(1);
+					}		
 				}
 			}
 		}
@@ -80,7 +83,19 @@ void Controller::inputs()
 
 		}
 	}
-
+	//Key pickup
+	for (int i = 0; i < model->keys.size(); i++)
+	{
+		float distance = sqrt(std::pow(model->player->position.x - model->keys[i]->position.x, 2) + std::pow(model->player->position.y - model->keys[i]->position.y, 2));
+		if (distance < Config::FUEL_PICKUP_DISTANCE)
+		{
+			//Add the key to the player's array of keys
+			model->player->addKeys(1);
+			//Remove key
+			view->renderables.erase(std::remove(view->renderables.begin(), view->renderables.end(), model->keys[i]), view->renderables.end());
+			model->keys.erase(model->keys.begin() + i);
+		}
+	}
 	if (model->player->inVehicle == Config::VEH_TRUE) //in vehicle
 	{
 		//    using Keanu's code.

@@ -31,6 +31,7 @@ public:
 	sf::Text score;
 	sf::Text timeElapsed;
 	sf::Text gameOver;
+	sf::Text Keys;
 
 private:
 	//World representation through VertexArray

@@ -27,6 +27,9 @@ public:
 	Zed* zed2;
 	Zed* zed3;
 	Zed* zed4;
+
+
+	std::vector<Key*>  keys;
 	std::vector<Vehicle*> vehicles;
 	std::vector<Fuel*> fuels;
 
