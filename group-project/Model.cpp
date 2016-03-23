@@ -90,9 +90,17 @@ void Model::update(sf::Time deltaTime)
 		updatables[i]->update(deltaTime);
 		terrainBump(updatables[i]);
 	}
+	for (int i = 0; i < this->vehicles.size(); i++) {
+		vehicles[i]->update(deltaTime);
+	}
 	if (player->vehicle != 0) {
-		player->vehicle->update(deltaTime);
+		//player->vehicle->update(deltaTime);
 		terrainBump(player->vehicle);
+		for (int i = 0; i < updatables.size(); i++) {
+			if (vehZedCollides(player->vehicle, updatables[i])) {
+				std::cout << "PLAYER VHICLE COLLIDED WITH ZED" << i << std::endl;
+			}
+		}
 	}
 	terrainBump(player);
 	distanceToGoal = sqrt(std::pow(player->position.x - endPosition.x, 2) + std::pow(player->position.y - endPosition.y, 2));
@@ -153,4 +161,15 @@ void Model::terrainBump(Vehicle* actor) {
 			actor->speed = 0;
 		}
 	}
+}
+
+sf::Vector2f Model::closestCirclePoint(sf::Vector2f u, sf::Vector2f v, float r) {
+	float a = (v.x - u.x)*(v.x - u.x);
+	float b = (v.y - u.y)*(v.y - u.y);
+	float dist = sqrt(a + b);
+	return (v + (((u - v) / dist)*r));
+}
+
+bool Model::vehZedCollides(Vehicle* v, Zed* z) {
+	return v->sprite.getGlobalBounds().contains(closestCirclePoint(v->position, z->position, Config::ZED_KILL_DISTANCE));
 }

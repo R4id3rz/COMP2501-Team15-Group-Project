@@ -91,7 +91,8 @@ View::View(Model* model)
 	this->worldQuads.resize(tileCols * tileRows * 4);
 
 	tileCoords[Tree] = sf::Vector2f(384, 128);
-	tileCoords[Grass] = tileCoords[zGrass] = tileCoords[Start] = tileCoords[End] = sf::Vector2f(384, 192);
+	tileCoords[End] = sf::Vector2f(448, 128);
+	tileCoords[Grass] = tileCoords[zGrass] = tileCoords[Start] = sf::Vector2f(384, 192);
 	tileCoords[vRoad] = tileCoords[zvRoad] = sf::Vector2f(384, 0);
 	tileCoords[hRoad] = tileCoords[zhRoad] = sf::Vector2f(256, 192);
 	tileCoords[neRoad] = tileCoords[zneRoad] = sf::Vector2f(384, 64);

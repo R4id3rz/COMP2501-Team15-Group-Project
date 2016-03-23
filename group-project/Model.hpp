@@ -50,4 +50,6 @@ public:
 	void update(sf::Time);
 	void terrainBump(Actor*);
 	void terrainBump(Vehicle*);
+	sf::Vector2f closestCirclePoint(sf::Vector2f, sf::Vector2f, float);
+	bool vehZedCollides(Vehicle*, Zed*);
 };
