@@ -44,16 +44,44 @@ View::View(Model* model)
 	playerFuel.setString("Player Fuel: ");
 	playerFuel.setFont(font);
 	playerFuel.setStyle(sf::Text::Bold);
-	playerFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6);
+	playerFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6 + 20);
 	playerFuel.setCharacterSize(20);
 	playerFuel.setColor(sf::Color::Red);
 
-	VehFuel.setString("Fuel: ");
-	VehFuel.setFont(font);
-	VehFuel.setStyle(sf::Text::Bold);
-	VehFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6 + 20);
-	VehFuel.setCharacterSize(20);
-	VehFuel.setColor(sf::Color::Red);
+	vehFuel.setString("Fuel: ");
+	vehFuel.setFont(font);
+	vehFuel.setStyle(sf::Text::Bold);
+	vehFuel.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5/6 + 40);
+	vehFuel.setCharacterSize(20);
+	vehFuel.setColor(sf::Color::Red);
+
+	goalDistance.setString("Distance to Goal: ");
+	goalDistance.setFont(font);
+	goalDistance.setStyle(sf::Text::Bold);
+	goalDistance.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 5 / 6);
+	goalDistance.setCharacterSize(20);
+	goalDistance.setColor(sf::Color::Red);
+
+	score.setString("Score: ");
+	score.setFont(font);
+	score.setStyle(sf::Text::Bold);
+	score.setPosition(10, 10);
+	score.setCharacterSize(20);
+	score.setColor(sf::Color::Red);
+
+	timeElapsed.setString("Time Elapsed: ");
+	timeElapsed.setFont(font);
+	timeElapsed.setStyle(sf::Text::Bold);
+	timeElapsed.setPosition(10, 30);
+	timeElapsed.setCharacterSize(20);
+	timeElapsed.setColor(sf::Color::Red);
+
+	gameOver.setString("GAME OVER");
+	gameOver.setFont(font);
+	gameOver.setStyle(sf::Text::Bold);
+	gameOver.setPosition(Config::WINDOW_WIDTH / 3, Config::WINDOW_HEIGHT / 3);
+	gameOver.setCharacterSize(40);
+	gameOver.setColor(sf::Color::Black);
 
 	//Initialize VertexArray
 	this->worldSprites.loadFromFile("Assets/spritesheet.png");
@@ -85,10 +113,10 @@ void View::render()
 	//std::cout << "P Pos: (" << model->player->position.x << ", " << model->player->position.y << ")" << std::endl;
 
 	for (int i = 0; i < renderables.size(); i++) {		//Updates positions of sprites in renderables[n] relative to the player's sprite's position
-		// (model->player->inVehicle == Config::VEH_FALSE)
+		if (model->player->inVehicle == Config::VEH_FALSE)
 			renderables[i]->sprite.setPosition(model->player->sprite.getPosition()+renderables[i]->position - model->player->position);
-		//else
-		//	renderables[i]->sprite.setPosition(model->player->vehicle->sprite.getPosition() + renderables[i]->position - model->player->vehicle->position);
+		else
+			renderables[i]->sprite.setPosition(model->player->vehicle->sprite.getPosition() + renderables[i]->position - model->player->vehicle->position);
 	}
 	//Draw sprites
 	this->window.clear();
@@ -109,23 +137,51 @@ void View::render()
 	}
 	else //in vehicle, draw vehicle
 	{
-		//model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
+		model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
 		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection());
-		//this->window.draw(model->player->vehicle->sprite);
-		VehFuel.setString("Fuel: " + std::to_string(model->player->vehicle->getFuel()));
-		this->window.draw(VehFuel);
+		this->window.draw(model->player->vehicle->sprite);
+		vehFuel.setString("Fuel: " + std::to_string(model->player->vehicle->getFuel()) + "L");
+		this->window.draw(vehFuel);
 	}
+
+	//drawing all the various texts
 	window.draw(inVehicle);
-	playerFuel.setString("Player Fuel: " + std::to_string(model->player->getFuel()));
-	this->window.draw(playerFuel);
-	
+	playerFuel.setString("Player Fuel: " + std::to_string(model->player->getFuel()) + "L");
+	window.draw(playerFuel);
+	goalDistance.setString("Distance to Goal: " + std::to_string((int)model->distanceToGoal) + "m");
+	window.draw(goalDistance);
+	score.setString("Score: " + std::to_string(model->score));
+	window.draw(score);
+	std::string seconds = std::to_string((int)model->time.asSeconds() % 60);
+	std::string minutes = std::to_string(model->time.asSeconds() / 60);
+	//adds a 0 in front of the second
+	if (((int)model->time.asSeconds() % 60) < 10)
+		seconds = "0" + std::to_string((int)model->time.asSeconds() % 60);
+	if ((model->time.asSeconds() / 60) < 10)
+		minutes = "0" + std::to_string((int)model->time.asSeconds() / 60);
+	timeElapsed.setString("Time Elapsed: " + minutes + ":" + seconds);
+	window.draw(timeElapsed);
+	if (model->gameOver)
+	{
+		std::string seconds = std::to_string((int)model->winningTime.asSeconds() % 60);
+		std::string minutes = std::to_string(model->winningTime.asSeconds() / 60);
+		//adds a 0 in front of the second
+		if (((int)model->time.asSeconds() % 60) < 10)
+			seconds = "0" + std::to_string((int)model->winningTime.asSeconds() % 60);
+		if ((model->time.asSeconds() / 60) < 10)
+			minutes = "0" + std::to_string((int)model->winningTime.asSeconds() / 60);
+		gameOver.setString("    GAME OVER\n Final Score: " + std::to_string(model->winningScore) + "\n Final Time: " + minutes + ":" + seconds);
+		window.draw(gameOver);
+	}
+
+
 	this->window.display();
 }
 
 void View::updateView() {	//Update the VertexArray here
 	float pX, pY, sX, sY;				//p = player's position (in world), s = current tile's position (in window)
 	int wX, wY, tileNum;				//w = world tile corresponding to current tile, tileNum = worldData of current tile
-
+		
 	pX = model->player->position.x;
 	pY = model->player->position.y;
 

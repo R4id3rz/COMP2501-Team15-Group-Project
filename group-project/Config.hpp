@@ -17,7 +17,7 @@
 //Truck
 #define	TRUCKMAXSPEED		2
 #define	TRUCKTURNRATE		2
-#define	TRUCKACCELERATION	0.1
+#define	TRUCKACCELERATION	0.005
 #define	TRUCKFUEL			15000
 
 #define TILESIZE			64
@@ -52,14 +52,20 @@ public:
 
 	//Tank
 	static constexpr const char*	TANK_IMAGE			= "Assets/Tank.png";
-	const static int				IDLE_USAGE			= 5;
+	const static int				IDLE_USAGE			= 1;
 	const static int				MOVING_USAGE		= 15;
 
 	//Car
 	static constexpr const char*	CAR_IMAGE			= "Assets/Car.png";
 
+	//Truck
+	static constexpr const char*	TRUCK_IMAGE			= "Assets/Truck.png";
+
 	//Fuel
 	const static int				DEFAULT_FUEL		= 10000;
 	static constexpr const char*	FUEL_IMAGE			= "Assets/JerryCan.png";
-	const static int				FUEL_PICKUP_DISTANCE = 20;
+	const static int				FUEL_PICKUP_DISTANCE= 20;
+
+	//Score
+	const static int				INIT_SCORE			= 100000;
 };
