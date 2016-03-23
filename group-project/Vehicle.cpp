@@ -39,19 +39,23 @@ void Vehicle::addFuel(int amount)
 //}
 
 void Vehicle::accelerate() {
-	accel = true;
+	if (fuel->getAmount() > 0)
+		accel = true;
 }
 
 void Vehicle::reverse() {
-	decel = true;
+	if (fuel->getAmount() > 0)
+		decel = true;
 }
 
 void Vehicle::turnLeft() {
-	delTurn = -1 * turnRate;
+	if (fuel->getAmount() > 0)
+		delTurn = -1 * turnRate;
 }
 
 void Vehicle::turnRight() {
-	delTurn = turnRate;
+	if (fuel->getAmount() > 0)
+		delTurn = turnRate;
 }
 
 void Vehicle::update(sf::Time time) {

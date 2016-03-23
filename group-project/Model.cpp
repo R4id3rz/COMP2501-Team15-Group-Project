@@ -22,6 +22,7 @@ Model::Model()
 	this->vehicles.push_back(new Tank(450, 550));
 	this->vehicles.push_back(new Tank(500, 500));
 	this->vehicles.push_back(new Car(300, 300));
+	this->vehicles.push_back(new Truck(300, 400));
 	
 	//push zeds to updatables
 	this->updatables.push_back(zed);
@@ -48,6 +49,12 @@ Model::Model()
 			}
 			if (worldData[i][j] == Start) {
 				player = new Player(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2);
+				startPosition.x = (j*TILESIZE + TILESIZE / 2);
+				startPosition.y = (i*TILESIZE + TILESIZE / 2);
+			}
+			if (worldData[i][j] == End) {
+				endPosition.x = (j*TILESIZE + TILESIZE / 2);
+				endPosition.y = (i*TILESIZE + TILESIZE / 2);
 			}
 			
 			if (worldData[i][j] < 10) {
@@ -63,6 +70,9 @@ Model::Model()
 	for (int i = 0; i < updatables.size(); i++) {
 		updatables[i]->player = this->player;
 	}
+
+	clock.restart();
+	score = Config::INIT_SCORE;
 }
 
 Model::~Model()
@@ -70,6 +80,10 @@ Model::~Model()
 
 void Model::update(sf::Time deltaTime)
 {
+	time = clock.getElapsedTime();
+	if (score > 0)
+		score--;
+
 	player->update(deltaTime);
 	for (int i = 0; i < this->updatables.size(); i++) //loops through updatables array and updates everything in it
 	{
@@ -77,5 +91,12 @@ void Model::update(sf::Time deltaTime)
 	}
 	if (player->vehicle != 0) {
 		player->vehicle->update(deltaTime);
+	}
+	distanceToGoal = sqrt(std::pow(player->position.x - endPosition.x, 2) + std::pow(player->position.y - endPosition.y, 2));
+	if (distanceToGoal < 20 && !gameOver)
+	{
+		gameOver = true;
+		winningTime = time;
+		winningScore = score;
 	}
 }

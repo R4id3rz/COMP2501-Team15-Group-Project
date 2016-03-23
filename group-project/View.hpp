@@ -26,7 +26,11 @@ public:
 	sf::Text playerDead;
 	sf::Text playerFuel;
 	sf::Text inVehicle;
-	sf::Text VehFuel;
+	sf::Text vehFuel;
+	sf::Text goalDistance;
+	sf::Text score;
+	sf::Text timeElapsed;
+	sf::Text gameOver;
 
 private:
 	//World representation through VertexArray

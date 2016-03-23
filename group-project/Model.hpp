@@ -30,6 +30,20 @@ public:
 	std::vector<Vehicle*> vehicles;
 	std::vector<Fuel*> fuels;
 
+	sf::Vector2f startPosition;
+	sf::Vector2f endPosition;
+	double distanceToGoal;
+
+	int winningScore;
+	sf::Time winningTime;
+
+	int score;
+
+	sf::Clock clock;
+	sf::Time time;
+
+	bool gameOver;
+
 	int** worldData;
 	int worldCols, worldRows;
 
