@@ -98,6 +98,13 @@ void Controller::inputs()
 	}
 	if (model->player->inVehicle == Config::VEH_TRUE) //in vehicle
 	{
+		for (int i = 0; i < model->updatables.size(); i++) {
+			if (model->vehZedCollides(model->player->vehicle, model->updatables[i])) {
+				std::cout << "PLAYER VHICLE COLLIDED WITH ZED" << i << std::endl;
+				view->renderables.erase(std::remove(view->renderables.begin(), view->renderables.end(), model->updatables[i]), view->renderables.end());
+				model->updatables.erase(model->updatables.begin() + i);
+			}
+		}
 		//    using Keanu's code.
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
