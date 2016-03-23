@@ -113,10 +113,10 @@ void View::render()
 	//std::cout << "P Pos: (" << model->player->position.x << ", " << model->player->position.y << ")" << std::endl;
 
 	for (int i = 0; i < renderables.size(); i++) {		//Updates positions of sprites in renderables[n] relative to the player's sprite's position
-		if (model->player->inVehicle == Config::VEH_FALSE)
+		//if (model->player->inVehicle == Config::VEH_FALSE)
 			renderables[i]->sprite.setPosition(model->player->sprite.getPosition()+renderables[i]->position - model->player->position);
-		else
-			renderables[i]->sprite.setPosition(model->player->vehicle->sprite.getPosition() + renderables[i]->position - model->player->vehicle->position);
+		//else
+		//	renderables[i]->sprite.setPosition(model->player->vehicle->sprite.getPosition() + renderables[i]->position - model->player->vehicle->position);
 	}
 	//Draw sprites
 	this->window.clear();
@@ -139,7 +139,7 @@ void View::render()
 	{
 		model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
 		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection());
-		this->window.draw(model->player->vehicle->sprite);
+		//this->window.draw(model->player->vehicle->sprite);
 		vehFuel.setString("Fuel: " + std::to_string(model->player->vehicle->getFuel()) + "L");
 		this->window.draw(vehFuel);
 	}
