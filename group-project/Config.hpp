@@ -70,5 +70,5 @@ public:
 	const static int				INIT_SCORE			= 100000;
 
 	//Key
-	static constexpr const char*	KEY_IMAGE = "Assets/key.png";
+	static constexpr const char*	KEY_IMAGE = "Assets/keyRed.png";
 };
