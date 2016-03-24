@@ -10,6 +10,10 @@ View::View(Model* model)
 	this->window.create(sf::VideoMode(Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT), "COMP2501 Group Project");
 	this->window.setFramerateLimit(Config::FPS);
 
+	//updatables (zeds)
+	for (int i = 0; i < model->updatables.size(); i++) {
+		renderables.push_back(model->updatables[i]);
+	}
 	//vehicles
 	for (int i = 0; i < model->vehicles.size(); i++)
 	{
@@ -19,11 +23,6 @@ View::View(Model* model)
 	for (int i = 0; i < model->fuels.size(); i++)
 	{
 		renderables.push_back(model->fuels[i]);
-	}
-
-	//updatables (zeds)
-	for (int i = 0; i < model->updatables.size(); i++) {
-		renderables.push_back(model->updatables[i]);
 	}
 	//Keys
 	for (int i = 0; i < model->keys.size(); i++) {
@@ -88,6 +87,13 @@ View::View(Model* model)
 	timeElapsed.setCharacterSize(20);
 	timeElapsed.setColor(sf::Color::Red);
 
+	killCount.setString("Zombies killed: ");
+	killCount.setFont(font);
+	killCount.setStyle(sf::Text::Bold);
+	killCount.setPosition(10, 50);
+	killCount.setCharacterSize(20);
+	killCount.setColor(sf::Color::Red);
+
 	gameOver.setString("GAME OVER");
 	gameOver.setFont(font);
 	gameOver.setStyle(sf::Text::Bold);
@@ -105,6 +111,8 @@ View::View(Model* model)
 	tileCoords[Tree] = sf::Vector2f(384, 128);
 	tileCoords[End] = sf::Vector2f(448, 128);
 	tileCoords[Grass] = tileCoords[zGrass] = tileCoords[Start] = sf::Vector2f(384, 192);
+	tileCoords[kSpawn] = tileCoords[fSpawn] = sf::Vector2f(384, 192);							//Item spawners (same as Grass)
+	tileCoords[cSpawn] = tileCoords[tkSpawn] = tileCoords[tnSpawn] = sf::Vector2f(384, 192);	//Vehicle spawners (ditto)
 	tileCoords[vRoad] = tileCoords[zvRoad] = sf::Vector2f(384, 0);
 	tileCoords[hRoad] = tileCoords[zhRoad] = sf::Vector2f(256, 192);
 	tileCoords[neRoad] = tileCoords[zneRoad] = sf::Vector2f(384, 64);
@@ -150,7 +158,7 @@ void View::render()
 	}
 	else //in vehicle, draw vehicle
 	{
-		model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
+		//model->player->vehicle->sprite.setPosition(Config::WINDOW_WIDTH / 2, Config::WINDOW_HEIGHT / 2);
 		model->player->vehicle->sprite.setRotation(model->player->vehicle->getDirection());
 		//this->window.draw(model->player->vehicle->sprite);
 		vehFuel.setString("Fuel: " + std::to_string(model->player->vehicle->getFuel()) + "L");
@@ -176,6 +184,8 @@ void View::render()
 		minutes = "0" + std::to_string((int)model->time.asSeconds() / 60);
 	timeElapsed.setString("Time Elapsed: " + minutes + ":" + seconds);
 	window.draw(timeElapsed);
+	killCount.setString("Zombies killed: " + std::to_string(model->zScore));
+	window.draw(killCount);
 	if (model->gameOver)
 	{
 		std::string seconds = std::to_string((int)model->winningTime.asSeconds() % 60);
@@ -205,7 +215,7 @@ void View::updateView() {	//Update the VertexArray here
 			//GET CURRENT TILE WORLD TILE
 			wX = floor((pX - ((winCols)*TILESIZE / 2)) / TILESIZE) + i;
 			wY = floor((pY - ((winRows)*TILESIZE / 2)) / TILESIZE) + j;
-			tileNum = Tree;																//default tile to draw is grass
+			tileNum = Tree;																	//default tile to draw is tree
 			if ((wX >= 0 && wY >= 0) && (wX < model->worldCols && wY < model->worldRows)) {	//avoid index out of bounds
 				tileNum = model->worldData[wY][wX];
 			}

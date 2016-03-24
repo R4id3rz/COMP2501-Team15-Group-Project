@@ -9,7 +9,7 @@ Key::Key(int x, int y, Vehicle* v) {
 	texture.setSmooth(true);
 
 	sprite.setTexture(texture); //init sprite
-	sprite.setScale(0.5, 0.5);
+	sprite.setScale(0.25, 0.25);
 	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y / 2);
 }
 

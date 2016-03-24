@@ -12,5 +12,6 @@ public:
 	Actor();
 	~Actor();
 
-	bool isDead;
+	bool dead;
+	void kill();
 };

@@ -5,16 +5,16 @@
 Tank::Tank(float x, float  y)
 	: Vehicle(TANKACCELERATION, TANKMAXSPEED, TANKTURNRATE, TANKFUEL) {
 	position.x = x, position.y = y;
-
 	//image.loadFromFile(Config::TANK_IMAGE);
 	//image.createMaskFromColor(sf::Color::White);
 	//texture.loadFromImage(image);
 
 	texture.loadFromFile(Config::TANK_IMAGE);
 	texture.setSmooth(true);
+	length = texture.getSize().x, width = texture.getSize().y;
 
 	sprite.setTexture(texture); //init sprite
-	sprite.setOrigin(texture.getSize().x / 2, texture.getSize().y * 2/3);
+	sprite.setOrigin(22, texture.getSize().y / 2);
 }
 
 Tank::~Tank() {

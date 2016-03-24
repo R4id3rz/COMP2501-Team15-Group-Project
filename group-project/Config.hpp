@@ -5,17 +5,17 @@
 
 //Vehicle consts
 //Tank
-#define TANKMAXSPEED		0.1
+#define TANKMAXSPEED		0.12
 #define TANKTURNRATE		1
 #define TANKACCELERATION	0.001
 #define TANKFUEL			25000
 //Car
-#define CARMAXSPEED			0.5
+#define CARMAXSPEED			0.4
 #define CARTURNRATE			4
 #define CARACCELERATION		0.01
 #define CARFUEL				10000
 //Truck
-#define	TRUCKMAXSPEED		0.3
+#define	TRUCKMAXSPEED		0.2
 #define	TRUCKTURNRATE		2
 #define	TRUCKACCELERATION	0.005
 #define	TRUCKFUEL			15000
@@ -24,8 +24,8 @@
 
 enum TILETYPE { Tree = 0, Grass = 1, vRoad = 2, hRoad = 3, neRoad = 4, esRoad = 5, swRoad = 6, wnRoad = 7,
 				zGrass = 8, zvRoad = 9, zhRoad = 10, zneRoad = 11, zesRoad = 12, zswRoad = 13, zwnRoad = 14,
-				Start = 15, End = 16};
-static sf::Vector2f tileCoords[17];
+				Start = 15, End = 16, kSpawn = 17, fSpawn = 18, cSpawn = 19, tkSpawn = 20, tnSpawn = 21 };
+static sf::Vector2f tileCoords[22];
 
 class Config
 {
@@ -45,7 +45,7 @@ public:
 
 	//Zed
 	static constexpr const char*	ZED_IMAGE			= "Assets/EnemySlime.png";
-	const static int				ZED_FOLLOW_DISTANCE	= 300;								//Zeds will follow under this distance
+	const static int				ZED_FOLLOW_DISTANCE	= TILESIZE*3;								//Zeds will follow under this distance
 	const static int				ZED_AMOUNT			= 4;
 	const static int				ZED_KILL_DISTANCE	= 10;
 	static constexpr const double	ZED_VELOCITY		= 0.1;
@@ -70,5 +70,5 @@ public:
 	const static int				INIT_SCORE			= 100000;
 
 	//Key
-	static constexpr const char*	KEY_IMAGE = "Assets/Key.png";
+	static constexpr const char*	KEY_IMAGE = "Assets/key.png";
 };

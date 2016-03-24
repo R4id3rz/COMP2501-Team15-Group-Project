@@ -8,6 +8,7 @@ Vehicle::Vehicle(float acceleration, float maxSpeed, float turnRate, int fuel)
 	velocity.x = velocity.y = speed = delTurn = 0;
 	direction = 0;
 	accel = decel = false;
+	locked = true;
 	this->fuel = new Fuel(0, 0, fuel);
 }
 
@@ -57,6 +58,8 @@ void Vehicle::turnRight() {
 	if (fuel->getAmount() > 0)
 		delTurn = turnRate;
 }
+void Vehicle::unlock() { locked = false; }
+bool Vehicle::isLocked() { return locked; }
 
 void Vehicle::update(sf::Time time) {
 	if (fuel > 0) {

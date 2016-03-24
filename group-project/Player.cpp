@@ -6,6 +6,7 @@ Player::Player(float x, float y)
 	: vehicle(0) {
 	position.x = x; //hardcoded init location
 	position.y = y;
+	dead = false;
 
 	image.loadFromFile(Config::PLAYER_IMAGE);
 	image.createMaskFromColor(sf::Color::White);
@@ -40,7 +41,7 @@ void Player::update(sf::Time time)  //updates position using velocity and time, 
 
 bool Player::getDeath()
 {
-	return this->isDead;
+	return this->dead;
 }
 
 void Player::addFuel(int n) {

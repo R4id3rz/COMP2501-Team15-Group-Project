@@ -20,9 +20,12 @@ public:
 	void reverse();									//Tell vehicle to decelerate
 	void turnLeft();								//Tell vehicle to turn left
 	void turnRight();								//Tell vehicle to turn right
+	void unlock();
+	bool isLocked();
 
 	void update(sf::Time);
 	float speed;									//Like velocity except without direction
+	int length, width;
 protected:
 	Fuel* fuel;
 	int direction, delTurn;						//Direction in degreees, 0 = East-ward
@@ -30,5 +33,5 @@ protected:
 	sf::Vector2f velocity;
 
 	const float turnRate, acceleration, maxSpeed;
-	bool accel, decel;
+	bool accel, decel, locked;
 };

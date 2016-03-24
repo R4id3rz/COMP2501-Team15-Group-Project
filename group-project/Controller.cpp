@@ -34,15 +34,25 @@ void Controller::inputs()
 				//std::cout << distance << std::endl;
 				if (distance < Config::VEH_ENTER_DISTANCE)
 				{
-					if (model->player->getNumKeys() > 0) {
-						//when going in vehicle, put all player fuel into vehicle
+					if (model->vehicles[i]->isLocked()) {
+						if (model->player->getNumKeys() > 0) {
+							//when going in vehicle, put all player fuel into vehicle
+							model->vehicles[i]->unlock();
+							model->player->inVehicle = Config::VEH_TRUE;
+							model->player->vehicle = model->vehicles[i];
+							int playerFuel = model->player->getFuel();
+							model->player->vehicle->addFuel(playerFuel);
+							model->player->setFuel(0);
+							model->player->removeKeys(1);
+						}
+					}
+					else {
 						model->player->inVehicle = Config::VEH_TRUE;
 						model->player->vehicle = model->vehicles[i];
 						int playerFuel = model->player->getFuel();
 						model->player->vehicle->addFuel(playerFuel);
 						model->player->setFuel(0);
-						model->player->removeKeys(1);
-					}		
+					}
 				}
 			}
 		}
@@ -63,7 +73,8 @@ void Controller::inputs()
 	//debug
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
 	{
-		model->player->isDead = false;
+		model->player->dead = false;
+		model->player->sprite.setColor(sf::Color(255,255,255));
 	}
 
 	//fuel pickup

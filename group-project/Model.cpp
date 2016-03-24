@@ -5,37 +5,27 @@
 
 Model::Model()
 {
-	//hardcoding and creating a player/zed
+	//hardcoding and creating a player/zed			KEPT IN FOR NOW FOR POSTERITY
 	//player = new Player();
-	zed = new Zed(player, 1200, 100);
+	/*zed = new Zed(player, 1200, 100);
 	zed2 = new Zed(player, 1200, 200);
 	zed3 = new Zed(player, 1200, 300);
-	zed4 = new Zed(player, 1200, 400);
-
-	//init fuel *Spawn this randomly when init map*
-	this->fuels.push_back(new Fuel(550, 500, Config::DEFAULT_FUEL));
-	this->fuels.push_back(new Fuel(600, 500, Config::DEFAULT_FUEL));
-	this->fuels.push_back(new Fuel(400, 400, Config::DEFAULT_FUEL));
-
-	//init vehicles
-	this->vehicles.push_back(new Tank(500, 550));
+	zed4 = new Zed(player, 1200, 400);*/
+	//this->fuels.push_back(new Fuel(550, 500, Config::DEFAULT_FUEL));
+	//this->fuels.push_back(new Fuel(600, 500, Config::DEFAULT_FUEL));
+	//this->fuels.push_back(new Fuel(400, 400, Config::DEFAULT_FUEL));
+	/*this->vehicles.push_back(new Tank(500, 550));
 	this->vehicles.push_back(new Tank(450, 550));
 	this->vehicles.push_back(new Tank(500, 500));
 	this->vehicles.push_back(new Car(300, 300));
-	this->vehicles.push_back(new Truck(300, 400));
-	
-	//push zeds to updatables
-	this->updatables.push_back(zed);
+	this->vehicles.push_back(new Truck(300, 400));*/
+	/*this->updatables.push_back(zed);
 	this->updatables.push_back(zed2);
 	this->updatables.push_back(zed3);
-	this->updatables.push_back(zed4);
-
-	Car* car = new Car(400, 400);
-	this->keys.push_back(new Key(1200, 450, car));
-	this->keys.push_back(new Key(400, 60, car));
-	this->keys.push_back(new Key(600, 600, car));
-	this->keys.push_back(new Key(100, 900, car));
-	this->keys.push_back(new Key(800, 200, car));
+	this->updatables.push_back(zed4);*/
+	/*for (int i = 0; i < this->vehicles.size(); i++) {
+		this->keys.push_back(new Key(this->vehicles[i]->position.x, this->vehicles[i]->position.y-TILESIZE));
+	}*/
 
 	//Load world from file
 	std::ifstream fileReader;
@@ -54,22 +44,26 @@ Model::Model()
 			if (worldData[i][j] >= zGrass && worldData[i][j] <= zwnRoad) {
 				updatables.push_back(new Zed(player, j*TILESIZE+TILESIZE/2, i*TILESIZE+TILESIZE/2));
 			}
-			if (worldData[i][j] == Start) {
+			else if (worldData[i][j] == Start) {
 				player = new Player(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2);
 				startPosition.x = (j*TILESIZE + TILESIZE / 2);
 				startPosition.y = (i*TILESIZE + TILESIZE / 2);
 			}
-			if (worldData[i][j] == End) {
+			else if (worldData[i][j] == End) {
 				endPosition.x = (j*TILESIZE + TILESIZE / 2);
 				endPosition.y = (i*TILESIZE + TILESIZE / 2);
 			}
-			
-			if (worldData[i][j] < 10) {
-				std::cout << "0" << worldData[i][j] << " ";
-			}
-			else { std::cout << worldData[i][j] << " "; }
+			else if (worldData[i][j] == fSpawn)
+				this->fuels.push_back(new Fuel(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2, Config::DEFAULT_FUEL));
+			else if (worldData[i][j] == kSpawn)
+				this->keys.push_back(new Key(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2));
+			else if (worldData[i][j] == cSpawn)
+				this->vehicles.push_back(new Car(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2));
+			else if (worldData[i][j] == tkSpawn)
+				this->vehicles.push_back(new Truck(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2));
+			else if (worldData[i][j] == tnSpawn)
+				this->vehicles.push_back(new Tank(j*TILESIZE + TILESIZE / 2, i*TILESIZE + TILESIZE / 2));
 		}
-		std::cout << std::endl;
 	}
 	if (player == 0) {
 		player = new Player(Config::PLAYER_START_POS_X, Config::PLAYER_START_POS_Y);
@@ -80,6 +74,7 @@ Model::Model()
 
 	clock.restart();
 	score = Config::INIT_SCORE;
+	zScore = 0;
 }
 
 Model::~Model()
@@ -105,7 +100,11 @@ void Model::update(sf::Time deltaTime)
 		terrainBump(player->vehicle);
 		for (int i = 0; i < updatables.size(); i++) {
 			if (vehZedCollides(player->vehicle, updatables[i])) {
-				std::cout << "PLAYER VHICLE COLLIDED WITH ZED" << i << std::endl;
+				if (!updatables[i]->dead) {
+					updatables[i]->kill();
+					zScore++;
+					//std::cout << "PLAYER VHICLE COLLIDED WITH ZED " << i << std::endl;
+				}
 			}
 		}
 	}
@@ -119,6 +118,7 @@ void Model::update(sf::Time deltaTime)
 	}
 }
 void Model::terrainBump(Actor* actor) {
+	mapBump(actor);
 	int tileX = floor(actor->position.x / TILESIZE);
 	int tileY = floor(actor->position.y / TILESIZE);
 	sf::Vector2f pos = sf::Vector2f(actor->position.x - tileX*TILESIZE, actor->position.y - tileY*TILESIZE);
@@ -144,6 +144,7 @@ void Model::terrainBump(Actor* actor) {
 	}
 }
 void Model::terrainBump(Vehicle* actor) {
+	mapBump(actor);
 	int tileX = floor(actor->position.x / TILESIZE);
 	int tileY = floor(actor->position.y / TILESIZE);
 	sf::Vector2f pos = sf::Vector2f(actor->position.x - tileX*TILESIZE, actor->position.y - tileY*TILESIZE);
@@ -169,6 +170,30 @@ void Model::terrainBump(Vehicle* actor) {
 		}
 	}
 }
+void Model::mapBump(Actor* a) {
+	if (a->position.x < 0) a->position.x = 0;
+	else if (a->position.x > worldCols * TILESIZE) a->position.x = worldCols * TILESIZE;
+	if (a->position.y < 0) a->position.y = 0;
+	else if (a->position.y > worldRows * TILESIZE) a->position.y = worldRows * TILESIZE;
+}
+void Model::mapBump(Vehicle* v) {
+	if (v->position.x < 0) {
+		v->position.x = 0;
+		v->speed = 0;
+	}
+	else if (v->position.x > worldCols * TILESIZE) {
+		v->position.x = worldCols * TILESIZE;
+		v->speed = 0;
+	}
+	if (v->position.y < 0) {
+		v->position.y = 0;
+		v->speed = 0;
+	}
+	else if (v->position.y > worldRows * TILESIZE) {
+		v->position.y = worldRows * TILESIZE;
+		v->speed = 0;
+	}
+}
 
 sf::Vector2f Model::closestCirclePoint(sf::Vector2f u, sf::Vector2f v, float r) {
 	float a = (v.x - u.x)*(v.x - u.x);
@@ -178,5 +203,6 @@ sf::Vector2f Model::closestCirclePoint(sf::Vector2f u, sf::Vector2f v, float r) 
 }
 
 bool Model::vehZedCollides(Vehicle* v, Zed* z) {
-	return v->sprite.getGlobalBounds().contains(closestCirclePoint(v->position, z->position, Config::ZED_KILL_DISTANCE));
+	sf::Vector2f zpt = closestCirclePoint(v->sprite.getPosition(), z->sprite.getPosition(), Config::ZED_KILL_DISTANCE);
+	return v->sprite.getGlobalBounds().contains(zpt);
 }

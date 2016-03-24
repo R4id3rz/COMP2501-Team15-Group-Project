@@ -48,11 +48,13 @@ public:
 	bool gameOver;
 
 	int** worldData;
-	int worldCols, worldRows;
+	int worldCols, worldRows, zScore;
 
 	void update(sf::Time);
-	void terrainBump(Actor*);
-	void terrainBump(Vehicle*);
-	sf::Vector2f closestCirclePoint(sf::Vector2f, sf::Vector2f, float);
-	bool vehZedCollides(Vehicle*, Zed*);
+	void terrainBump(Actor*);											//Actor terrain collision
+	void terrainBump(Vehicle*);											//Vehicle ditto
+	void mapBump(Actor*);												//Actor world entrapment
+	void mapBump(Vehicle*);												//Vehicle world entrapment
+	sf::Vector2f closestCirclePoint(sf::Vector2f, sf::Vector2f, float);	//returns point input float distance from second vector towards first vector
+	bool vehZedCollides(Vehicle*, Zed*);								//returns true if z->sprite->position is in contact w/ v->sprite
 };

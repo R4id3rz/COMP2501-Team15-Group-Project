@@ -23,6 +23,7 @@ public:
 
 	//temp string
 	sf::Font font;
+	sf::Text killCount;
 	sf::Text playerDead;
 	sf::Text playerFuel;
 	sf::Text inVehicle;
