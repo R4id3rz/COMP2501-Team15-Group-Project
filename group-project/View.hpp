@@ -23,16 +23,22 @@ public:
 
 	//temp string
 	sf::Font font;
+
 	sf::Text killCount;
-	sf::Text playerDead;
+	sf::Text score;
+	sf::Text timeElapsed;
+	
 	sf::Text playerFuel;
 	sf::Text inVehicle;
 	sf::Text vehFuel;
 	sf::Text goalDistance;
-	sf::Text score;
-	sf::Text timeElapsed;
-	sf::Text gameOver;
 	sf::Text Keys;
+	
+	sf::Text gameOver;
+	
+	sf::Text playerDead;
+
+	sf::Text HUD;
 
 private:
 	//World representation through VertexArray

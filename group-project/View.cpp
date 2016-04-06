@@ -38,7 +38,7 @@ View::View(Model* model)
 	playerDead.setCharacterSize(20);
 	playerDead.setColor(sf::Color::Red);
 
-	inVehicle.setString("Q to Enter Vehicle, E to Exit Vehicle");
+	inVehicle.setString("E to Enter/Exit Vehicle");
 	inVehicle.setFont(font);
 	inVehicle.setStyle(sf::Text::Bold);
 	inVehicle.setPosition(Config::WINDOW_WIDTH * 1 / 2.5, Config::WINDOW_HEIGHT * 4 / 5);

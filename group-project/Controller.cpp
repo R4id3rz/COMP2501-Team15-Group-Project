@@ -5,6 +5,7 @@ Controller::Controller(Model* model, View* view)
 {
 	this->model = model;
 	this->view = view;
+	keyReleased = true;
 }
 
 Controller::~Controller()
@@ -24,9 +25,9 @@ void Controller::inputs()
 		}
 	}
 	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
 	{
-		if (model->player->inVehicle == Config::VEH_FALSE)
+		if (model->player->inVehicle == Config::VEH_FALSE && keyReleased)
 		{
 			for (int i = 0; i < model->vehicles.size(); i++)
 			{
@@ -56,10 +57,7 @@ void Controller::inputs()
 				}
 			}
 		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-	{
-		if (model->player->inVehicle == Config::VEH_TRUE)
+		else if (model->player->inVehicle == Config::VEH_TRUE && keyReleased)
 		{
 			//remove all fuel from vehicle and put into player
 			model->player->inVehicle = Config::VEH_FALSE;
@@ -68,6 +66,12 @@ void Controller::inputs()
 			model->player->vehicle->decreaseFuel(vehFuel);
 			model->player->vehicle = 0;
 		}
+
+		keyReleased = false;
+	}
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		keyReleased = true;
 	}
 
 	//debug

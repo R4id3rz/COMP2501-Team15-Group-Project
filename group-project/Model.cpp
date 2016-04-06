@@ -83,10 +83,14 @@ Model::~Model()
 void Model::update(sf::Time deltaTime)
 {
 	time = clock.getElapsedTime();
-	if (score > 0)
+	if (score > 0 && !player->getDeath())
 		score--;
 
-	player->update(deltaTime);
+	if (!player->getDeath())
+	{
+		player->update(deltaTime);
+	}
+	
 	for (int i = 0; i < this->updatables.size(); i++) //loops through updatables array and updates everything in it
 	{
 		updatables[i]->update(deltaTime);

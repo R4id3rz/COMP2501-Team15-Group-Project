@@ -13,5 +13,7 @@ public:
 	Model* model;
 	View* view;
 
+	bool keyReleased;
+
 	void inputs();
 };

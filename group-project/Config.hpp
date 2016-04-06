@@ -48,7 +48,7 @@ public:
 	const static int				ZED_FOLLOW_DISTANCE	= TILESIZE*3;								//Zeds will follow under this distance
 	const static int				ZED_AMOUNT			= 4;
 	const static int				ZED_KILL_DISTANCE	= 10;
-	static constexpr const double	ZED_VELOCITY		= 0.1;
+	static constexpr const double	ZED_VELOCITY		= 0.21;
 
 	//Tank
 	static constexpr const char*	TANK_IMAGE			= "Assets/Tank.png";
