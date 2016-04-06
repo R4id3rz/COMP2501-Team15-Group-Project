@@ -30,7 +30,7 @@ protected:
 	Fuel* fuel;
 	int direction, delTurn;						//Direction in degreees, 0 = East-ward
 	
-	sf::Vector2f velocity;
+	//sf::Vector2f velocity;
 
 	const float turnRate, acceleration, maxSpeed;
 	bool accel, decel, locked;

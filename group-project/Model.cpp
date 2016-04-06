@@ -87,6 +87,7 @@ void Model::update(sf::Time deltaTime)
 		score--;
 
 	player->update(deltaTime);
+	terrainBump(player);
 	for (int i = 0; i < this->updatables.size(); i++) //loops through updatables array and updates everything in it
 	{
 		updatables[i]->update(deltaTime);
@@ -108,7 +109,6 @@ void Model::update(sf::Time deltaTime)
 			}
 		}
 	}
-	terrainBump(player);
 	distanceToGoal = sqrt(std::pow(player->position.x - endPosition.x, 2) + std::pow(player->position.y - endPosition.y, 2));
 	if (distanceToGoal < 20 && !gameOver)
 	{
@@ -145,27 +145,24 @@ void Model::terrainBump(Actor* actor) {
 }
 void Model::terrainBump(Vehicle* actor) {
 	mapBump(actor);
-	int tileX = floor(actor->position.x / TILESIZE);
-	int tileY = floor(actor->position.y / TILESIZE);
-	sf::Vector2f pos = sf::Vector2f(actor->position.x - tileX*TILESIZE, actor->position.y - tileY*TILESIZE);
-	if (tileX >= 0 && tileX < worldCols && tileY >= 0 && tileY < worldRows) {
-		if (worldData[tileY][tileX] == Tree) {
-			if (pos.x <= pos.y) {
-				if ((-pos.x + 64) <= pos.y) {		//actor is on south side of tile
-					actor->position.y += TILESIZE - pos.y;
-				}
-				else if ((-pos.x + 64) >= pos.y) {	//actor is on west side of tile
-					actor->position.x -= pos.x;
-				}
-			}
-			else if (pos.x >= pos.y) {
-				if ((-pos.x + 64) <= pos.y) {		//actor is on east side of tile
-					actor->position.x += TILESIZE - pos.x;
-				}
-				else if ((-pos.x + 64) >= pos.y) {	//actor is on north side of tile
-					actor->position.y -= pos.y;
-				}
-			}
+	sf::Vector2i tile = sf::Vector2i(floor((actor->position.x) / TILESIZE), floor((actor->position.y) / TILESIZE));
+	sf::Vector2i prevTile = sf::Vector2i(floor((actor->position.x - actor->velocity.x) / TILESIZE), floor((actor->position.y - actor->velocity.y) / TILESIZE));
+	//sf::Vector2f pos = sf::Vector2f(actor->position.x - tile.x*TILESIZE, actor->position.y - tile.y*TILESIZE);
+	if (prevTile.x >= 0 && prevTile.x < worldCols && prevTile.y >= 0 && prevTile.y < worldRows) {
+		if (tile.x < prevTile.x && worldData[tile.y][tile.x] == Tree) {
+			actor->position.x = prevTile.x * TILESIZE;
+			actor->speed = 0;
+		}
+		else if (tile.x > prevTile.x && worldData[tile.y][tile.x] == Tree) {
+			actor->position.x = (prevTile.x * TILESIZE) + TILESIZE - 1;
+			actor->speed = 0;
+		}
+		if (tile.y < prevTile.y && worldData[tile.y][tile.x] == Tree) {
+			actor->position.y = prevTile.y * TILESIZE;
+			actor->speed = 0;
+		}
+		else if (tile.y > prevTile.y && worldData[tile.y][tile.x] == Tree) {
+			actor->position.y = (prevTile.y * TILESIZE) + TILESIZE - 1;
 			actor->speed = 0;
 		}
 	}

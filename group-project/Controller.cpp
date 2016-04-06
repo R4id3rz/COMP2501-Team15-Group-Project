@@ -145,32 +145,32 @@ void Controller::inputs()
 			{
 				model->player->velocity.x = 0; //set to 0 to fix bugs
 				model->player->velocity.y = 0;
-				model->player->velocity.x = -1 * Config::PLAYER_VELOCITY;  //backwards
-				model->player->velocity.y = -1 * Config::PLAYER_VELOCITY;
+				model->player->velocity.x = -1 * Config::PLAYER_VELOCITY / 1.41;  //backwards
+				model->player->velocity.y = -1 * Config::PLAYER_VELOCITY / 1.41;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
 				sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::A)) //down + left case
 			{
 				model->player->velocity.x = 0;
 				model->player->velocity.y = 0;
-				model->player->velocity.x = -1 * Config::PLAYER_VELOCITY;
-				model->player->velocity.y = Config::PLAYER_VELOCITY;
+				model->player->velocity.x = -1 * Config::PLAYER_VELOCITY / 1.41;
+				model->player->velocity.y = Config::PLAYER_VELOCITY / 1.41;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
 				sf::Keyboard::isKeyPressed(sf::Keyboard::W) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //up + right case
 			{
 				model->player->velocity.x = 0;
 				model->player->velocity.y = 0;
-				model->player->velocity.x = Config::PLAYER_VELOCITY;
-				model->player->velocity.y = -1 * Config::PLAYER_VELOCITY;
+				model->player->velocity.x = Config::PLAYER_VELOCITY / 1.41;
+				model->player->velocity.y = -1 * Config::PLAYER_VELOCITY / 1.41;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
 				sf::Keyboard::isKeyPressed(sf::Keyboard::S) && sf::Keyboard::isKeyPressed(sf::Keyboard::D)) //down + right case
 			{
 				model->player->velocity.x = 0;
 				model->player->velocity.y = 0;
-				model->player->velocity.x = Config::PLAYER_VELOCITY;
-				model->player->velocity.y = Config::PLAYER_VELOCITY;
+				model->player->velocity.x = Config::PLAYER_VELOCITY / 1.41;
+				model->player->velocity.y = Config::PLAYER_VELOCITY / 1.41;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)) //up
 			{
